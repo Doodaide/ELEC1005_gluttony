@@ -94,6 +94,28 @@ def initial_interface():
 
         pygame.display.update()
         pygame.time.Clock().tick(15)
+        
+def settings_interface():
+    intro = True
+    while intro:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+        
+        pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15)).fill(white)
+        message_display('Customise game', game.settings.width / 2 * 15, game.settings.height / 4 * 15)
+
+        button('No boundaries', 100, 140, 100, 40, green, green, game_loop_no_boundary, 'human')
+        button('Speed Mode', 230, 140, 100, 40, green, green, game_loop_speed, 'human')
+
+        button('Easy', 100, 200, 100, 40, green, green, game_loop_easy, 'human')
+        button('Medium', 230, 200, 100, 40, green, green, game_loop_medium, 'human')
+        button('Hard', 165, 260, 100, 40, green, green, game_loop_hard, 'human')
+
+        button('Exit', 175, 340, 80, 30, red, red, initial_interface)
+
+        pygame.display.update()
+        pygame.time.Clock().tick(20)
 
 
 def game_loop(player, fps=10):
