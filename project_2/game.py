@@ -117,7 +117,7 @@ class Strawberry():
         
     def random_pos(self, snake):
         self.style = str(random.randint(1, 8))
-        self.image = pygame.image.load('images/food' + str(self.style) + '.bmp')                
+        self.image = pygame.image.load('images/food' + str(self.style) + '.bmp')           
         
         self.position[0] = random.randint(0, self.settings.width-1)
         self.position[1] = random.randint(0, self.settings.height-1)
@@ -136,8 +136,7 @@ class Strawberry():
       
         
 class Game:
-    """
-    """
+
     def __init__(self):
         self.settings = Settings()
         self.snake = Snake()
@@ -227,6 +226,36 @@ class Game:
                     
         return reward
 
+
+        move_dict = self.move_dict
+        
+        change_direction = move_dict[move]
+        
+        if change_direction == 'right' and not self.snake.facing == 'left':
+            self.snake.facing = change_direction
+        if change_direction == 'left' and not self.snake.facing == 'right':
+            self.snake.facing = change_direction
+        if change_direction == 'up' and not self.snake.facing == 'down':
+            self.snake.facing = change_direction
+        if change_direction == 'down' and not self.snake.facing == 'up':
+            self.snake.facing = change_direction
+
+        self.snake.update()
+        
+        if self.snake.position == self.strawberry.position:
+            self.strawberry.random_pos(self.snake)
+            reward = 1
+            self.snake.score += 1
+            self.snake.segments.reverse()
+            
+        else:
+            self.snake.segments.pop()
+            reward = 0
+                
+        if self.game_end():
+            return -1
+                    
+        return reward
     
     def game_end(self):
         end = False
