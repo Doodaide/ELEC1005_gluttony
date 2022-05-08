@@ -107,7 +107,7 @@ def settings_interface():
         message_display('Customise game', game.settings.width / 2 * 15, game.settings.height / 4 * 15)
 
         button('Over and Under', 100, 140, 100, 40, green, green, game_loop_over_and_under, 'human')
-        button('Speed Mode', 230, 140, 100, 40, green, green, game_loop, 'human')
+        button('No Boundaries', 230, 140, 100, 40, green, green, game_loop_no_boundaries, 'human')
 
         button('Easy', 100, 200, 100, 40, green, green, game_loop, 'human')
         button('Medium', 230, 200, 100, 40, green, green, game_loop, 'human')
@@ -119,13 +119,13 @@ def settings_interface():
         pygame.time.Clock().tick(20)
 
 
-def game_loop(player, fps=10):
+def game_loop(player, fps=10): #DEFAULT GAME
     game.restart_game()
     while not game.game_end():
         pygame.event.pump()
         move = human_move()
         fps = 5
-        game.do_move(move)
+        game.do_move_normal(move)
         screen.fill(black)
         game.snake.blit(rect_len, screen)
         game.strawberry.blit(screen)
@@ -135,13 +135,13 @@ def game_loop(player, fps=10):
 
     crash() #testgit
 
-def game_loop_over_and_under(player, fps=20):
+def game_loop_over_and_under(player, fps=10):
     game.restart_game()
     while not game.game_end_over_and_under():
         pygame.event.pump()
         move = human_move()
         fps = 10
-        game.do_move(move)
+        game.do_move_normal(move)
         screen.fill(black)
         game.snake.blit(rect_len, screen)
         game.strawberry.blit(screen)
@@ -151,7 +151,21 @@ def game_loop_over_and_under(player, fps=20):
     
     crash()
 
-#TEST
+def game_loop_no_boundaries(player, fps=10):
+    game.restart_game()
+    while not game.game_end():
+        pygame.event.pump()
+        move = human_move()
+        fps = 10
+        game.do_move_no_boundaries(move)
+        screen.fill(black)
+        game.snake.blit(rect_len, screen)
+        game.strawberry.blit(screen)
+        game.blit_score(white, screen)
+        pygame.display.flip()
+        fpsClock.tick(fps)
+
+    crash()
 
 def human_move():
     direction = snake.facing
@@ -174,7 +188,6 @@ def human_move():
 
     move = game.direction_to_int(direction)
     return move
-
 
 if __name__ == "__main__":
     initial_interface()

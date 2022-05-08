@@ -79,6 +79,33 @@ class Snake:
         if self.facing == 'down':
             self.position[1] += 1
         self.segments.insert(0, list(self.position))
+
+    def update_no_boundaries(self):
+        if self.facing == 'right':
+            if self.position[0] == 27:
+                self.position[0] = 0
+            else:
+                self.position[0] += 1
+        
+        if self.facing == 'left':
+            if self.position[0] == 0:
+                self.position[0] = 27
+            else:
+                self.position[0] -= 1
+
+        if self.facing == 'up':
+            if self.position[1] == 0:
+                self.position[1] = 27
+            else:
+                self.position[1] -= 1
+
+        if self.facing == 'down':
+            if self.position[1] == 27:
+                self.position[1] = 0
+            else:
+                self.position[1] += 1
+
+        self.segments.insert(0, list(self.position))
         
 class Strawberry():
     def __init__(self, settings):
@@ -142,7 +169,7 @@ class Game:
         direction_dict = {value : key for key,value in self.move_dict.items()}
         return direction_dict[direction]
         
-    def do_move(self, move):
+    def do_move_normal(self, move):
         move_dict = self.move_dict
         
         change_direction = move_dict[move]
@@ -170,6 +197,36 @@ class Game:
             return -1
                     
         return reward
+
+    def do_move_no_boundaries(self, move):
+        move_dict = self.move_dict
+        
+        change_direction = move_dict[move]
+        
+        if change_direction == 'right' and not self.snake.facing == 'left':
+            self.snake.facing = change_direction
+        if change_direction == 'left' and not self.snake.facing == 'right':
+            self.snake.facing = change_direction
+        if change_direction == 'up' and not self.snake.facing == 'down':
+            self.snake.facing = change_direction
+        if change_direction == 'down' and not self.snake.facing == 'up':
+            self.snake.facing = change_direction
+
+        self.snake.update_no_boundaries()
+        
+        if self.snake.position == self.strawberry.position:
+            self.strawberry.random_pos(self.snake)
+            reward = 1
+            self.snake.score += 1
+        else:
+            self.snake.segments.pop()
+            reward = 0
+                
+        if self.game_end():
+            return -1
+                    
+        return reward
+
     
     def game_end(self):
         end = False
