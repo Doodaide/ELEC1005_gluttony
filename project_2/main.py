@@ -151,6 +151,7 @@ def game_loop_over_and_under(player, fps=20):
     
     crash()
 
+#TEST
 
 def human_move():
     direction = snake.facing
