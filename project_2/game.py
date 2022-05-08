@@ -181,6 +181,15 @@ class Game:
             end = True
 
         return end
+
+    def game_end_over_and_under(self):
+        end = False
+        if self.snake.position[0] >= self.settings.width or self.snake.position[0] < 0:
+            end = True
+        if self.snake.position[1] >= self.settings.height or self.snake.position[1] < 0:
+            end = True
+
+        return end
     
     def blit_score(self, color, screen):
         font = pygame.font.SysFont(None, 25)

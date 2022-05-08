@@ -23,7 +23,7 @@ bright_blue = pygame.Color(32, 200, 200)
 yellow = pygame.Color(255, 205, 0)
 bright_yellow = pygame.Color(255, 255, 0)
 
-game = Game('easy')
+game = Game()
 rect_len = game.settings.rect_len
 snake = game.snake
 pygame.init()
@@ -148,8 +148,8 @@ def game_loop_over_and_under(player, fps=20):
         game.blit_score(white, screen)
         pygame.display.flip()
         fpsClock.tick(fps)
-
-
+    
+    crash()
 
 
 def human_move():
