@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed May 16 15:22:20 2018
-
 @author: zou
 """
 
@@ -24,7 +23,7 @@ bright_blue = pygame.Color(32, 200, 200)
 yellow = pygame.Color(255, 205, 0)
 bright_yellow = pygame.Color(255, 255, 0)
 
-game = Game()
+game = Game('easy')
 rect_len = game.settings.rect_len
 snake = game.snake
 pygame.init()
@@ -92,6 +91,8 @@ def initial_interface():
         button('Go!', 80, 240, 80, 40, green, bright_green, game_loop, 'human')
         button('Quit', 270, 240, 80, 40, red, bright_red, quitgame)
 
+        button('Settings', 175, 300, 80, 40, yellow, bright_yellow, settings_interface)
+
         pygame.display.update()
         pygame.time.Clock().tick(15)
         
@@ -105,7 +106,7 @@ def settings_interface():
         pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15)).fill(white)
         message_display('Customise game', game.settings.width / 2 * 15, game.settings.height / 4 * 15)
 
-        button('No boundaries', 100, 140, 100, 40, green, green, game_loop, 'human')
+        button('Over and Under', 100, 140, 100, 40, green, green, game_loop_over_and_under, 'human')
         button('Speed Mode', 230, 140, 100, 40, green, green, game_loop, 'human')
 
         button('Easy', 100, 200, 100, 40, green, green, game_loop, 'human')
@@ -120,27 +121,35 @@ def settings_interface():
 
 def game_loop(player, fps=10):
     game.restart_game()
-
     while not game.game_end():
-
         pygame.event.pump()
-
         move = human_move()
         fps = 5
-
         game.do_move(move)
-
         screen.fill(black)
-
         game.snake.blit(rect_len, screen)
         game.strawberry.blit(screen)
         game.blit_score(white, screen)
-
         pygame.display.flip()
-
         fpsClock.tick(fps)
 
     crash()
+
+def game_loop_over_and_under(player, fps=20):
+    game.restart_game()
+    while not game.game_end_over_and_under():
+        pygame.event.pump()
+        move = human_move()
+        fps = 10
+        game.do_move(move)
+        screen.fill(black)
+        game.snake.blit(rect_len, screen)
+        game.strawberry.blit(screen)
+        game.blit_score(white, screen)
+        pygame.display.flip()
+        fpsClock.tick(fps)
+
+
 
 
 def human_move():
