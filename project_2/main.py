@@ -105,12 +105,12 @@ def settings_interface():
         pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15)).fill(white)
         message_display('Customise game', game.settings.width / 2 * 15, game.settings.height / 4 * 15)
 
-        button('No boundaries', 100, 140, 100, 40, green, green, game_loop_no_boundary, 'human')
-        button('Speed Mode', 230, 140, 100, 40, green, green, game_loop_speed, 'human')
+        button('No boundaries', 100, 140, 100, 40, green, green, game_loop, 'human')
+        button('Speed Mode', 230, 140, 100, 40, green, green, game_loop, 'human')
 
-        button('Easy', 100, 200, 100, 40, green, green, game_loop_easy, 'human')
-        button('Medium', 230, 200, 100, 40, green, green, game_loop_medium, 'human')
-        button('Hard', 165, 260, 100, 40, green, green, game_loop_hard, 'human')
+        button('Easy', 100, 200, 100, 40, green, green, game_loop, 'human')
+        button('Medium', 230, 200, 100, 40, green, green, game_loop, 'human')
+        button('Hard', 165, 260, 100, 40, green, green, game_loop, 'human')
 
         button('Exit', 175, 340, 80, 30, red, red, initial_interface)
 
