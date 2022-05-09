@@ -45,6 +45,13 @@ def message_display(text, x, y, color=black):
     screen.blit(text_surf, text_rect)
     pygame.display.update()
 
+def small_message_display(text, x, y, color=white):
+    large_text = pygame.font.SysFont('comicsansms', 20)
+    text_surf, text_rect = text_objects(text, large_text, color)
+    text_rect.center = (x, y)
+    screen.blit(text_surf, text_rect)
+    pygame.display.update()
+
 
 def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter=None):
     mouse = pygame.mouse.get_pos()
@@ -77,6 +84,12 @@ def crash():
 
 snakebackground = pygame.image.load('images/snakeicon.png')
 
+bluesnake = ''
+redsnake = ''
+yellowsnake = ''
+greensnake = ''
+# ALL OTHER SKINS
+
 def initial_interface():
     intro = True
     while intro:
@@ -84,16 +97,13 @@ def initial_interface():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-        
-        #game.settings.width = 28
-        # ^ * 25 = 700 
 
         screen.fill(black)
         screen.blit(snakebackground, (game.settings.width * 5, game.settings.height / 3))
         
         message_display('Snake Game', 350, game.settings.height * 6, white)
 
-        button('Go!', 230, 240, 80, 40, green, bright_green, game_loop, 'human')
+        button('Go!', 230, 240, 80, 40, green, bright_green, game_loop_easy, 'human')
         button('Quit', 390, 240, 80, 40, red, bright_red, quitgame)
 
         button('Settings', 310, 300, 80, 40, yellow, bright_yellow, settings_interface)
@@ -111,38 +121,54 @@ def settings_interface():
         
         pygame.display.set_mode((game.settings.width * 25, game.settings.height * 15)).fill(white)
         screen.fill(black)
+        button('', 150, 40, 350, 70, black, black, color_interface)
         screen.blit(snakebackground, (game.settings.width * 5, game.settings.height / 3))
         message_display('Customise game', 350, game.settings.height * 6, white)
+        small_message_display('*click me*', 155, 75, white)
+        
 
         button('Over and Under', 180, 200, 100, 40, green, green, game_loop_over_and_under, 'human')
         button('No Boundaries', 300, 200, 100, 40, green, green, game_loop_no_boundaries, 'human')
 
         button('Easy', 180, 260, 100, 40, green, green, game_loop_easy, 'human')
-        button('Medium', 300, 260, 100, 40, green, green, game_loop, 'human')
-        button('Hard', 420, 260, 100, 40, green, green, game_loop, 'human')
+        button('Medium', 300, 260, 100, 40, green, green, game_loop_medium, 'human')
+        button('Hard', 420, 260, 100, 40, green, green, game_loop_hard, 'human')
 
         button('Exit', 300, 340, 100, 30, red, red, initial_interface)
 
         pygame.display.update()
         pygame.time.Clock().tick(20)
 
+def color_interface():
+    intro = True
+    while intro:
 
-def game_loop(player, fps=10): #DEFAULT GAME
-    game.restart_game()
-    while not game.game_end():
-        screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
-        pygame.event.pump()
-        move = human_move()
-        fps = 5
-        game.do_move_normal(move)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
         screen.fill(black)
-        game.snake.blit(rect_len, screen)
-        game.strawberry.blit(screen)
-        game.blit_score(white, screen)
-        pygame.display.flip()
-        fpsClock.tick(fps)
+        
+        message_display('Choose Your Snake', 350, game.settings.height * 2, white)
 
-    crash()
+        button('Blue:', 60, 120, 80, 40, blue, bright_blue, settings_interface)
+        small_message_display('*insert image of blue*', 240, 140, white)
+
+        button('Red:', 60, 180, 80, 40, blue, bright_blue, settings_interface)
+        small_message_display('*insert image of red*', 240, 200, white)
+
+        button('Yellow:', 60, 240, 80, 40, blue, bright_blue, settings_interface)
+        small_message_display('*insert image of red*', 240, 260, white)
+        button('Green:', 60, 300, 80, 40, blue, bright_blue, settings_interface)
+
+        button('Option 5:', 340, 120, 80, 40, blue, bright_blue, settings_interface)
+        button('Option 6:', 340, 180, 80, 40, blue, bright_blue, settings_interface)
+        button('Option 7:', 340, 240, 80, 40, blue, bright_blue, settings_interface)
+
+        pygame.display.update()
+        pygame.time.Clock().tick(15)
+
+
 
 def game_loop_over_and_under(player, fps=10): #WONT DIE FROM HITTING SELF
     game.restart_game()
@@ -194,6 +220,41 @@ def game_loop_easy(player, fps=10):
         fpsClock.tick(fps)
 
     crash()
+
+def game_loop_medium(player, fps=10):
+    game.restart_game()
+    while not game.game_end():
+        screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
+        pygame.event.pump()
+        move = human_move()
+        fps = 10
+        game.do_move_normal(move)
+        screen.fill(black)
+        game.snake.blit(rect_len, screen)
+        game.strawberry.blit(screen)
+        game.blit_score(white, screen)
+        pygame.display.flip()
+        fpsClock.tick(fps)
+
+    crash()
+
+def game_loop_hard(player, fps=10):
+    game.restart_game()
+    while not game.game_end():
+        screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
+        pygame.event.pump()
+        move = human_move()
+        fps = 15
+        game.do_move_normal(move)
+        screen.fill(black)
+        game.snake.blit(rect_len, screen)
+        game.strawberry.blit(screen)
+        game.blit_score(white, screen)
+        pygame.display.flip()
+        fpsClock.tick(fps)
+
+    crash()
+
 
 def human_move():
     direction = snake.facing
