@@ -27,7 +27,7 @@ rect_len = game.settings.rect_len
 snake = game.snake
 pygame.init()
 fpsClock = pygame.time.Clock()
-screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
+screen = pygame.display.set_mode((game.settings.width * 25, game.settings.height * 15))
 pygame.display.set_caption('Gluttonous')
 
 crash_sound = pygame.mixer.Sound('./sound/crash.wav')
@@ -75,6 +75,7 @@ def crash():
     message_display('crashed', game.settings.width / 2 * 15, game.settings.height / 3 * 15, white)
     time.sleep(1)
 
+snakebackground = pygame.image.load('images/snakeicon.png')
 
 def initial_interface():
     intro = True
@@ -83,14 +84,19 @@ def initial_interface():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+        
+        #game.settings.width = 28
+        # ^ * 25 = 700 
 
-        screen.fill(white)
-        message_display('Gluttonous', game.settings.width / 2 * 15, game.settings.height / 4 * 15)
+        screen.fill(black)
+        screen.blit(snakebackground, (game.settings.width * 5, game.settings.height / 3))
+        
+        message_display('Snake Game', 350, game.settings.height * 6, white)
 
-        button('Go!', 80, 240, 80, 40, green, bright_green, game_loop, 'human')
-        button('Quit', 270, 240, 80, 40, red, bright_red, quitgame)
+        button('Go!', 230, 240, 80, 40, green, bright_green, game_loop, 'human')
+        button('Quit', 390, 240, 80, 40, red, bright_red, quitgame)
 
-        button('Settings', 175, 300, 80, 40, yellow, bright_yellow, settings_interface)
+        button('Settings', 310, 300, 80, 40, yellow, bright_yellow, settings_interface)
 
         pygame.display.update()
         pygame.time.Clock().tick(15)
@@ -103,17 +109,19 @@ def settings_interface():
                 pygame.quit()
         
         
-        pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15)).fill(white)
-        message_display('Customise game', game.settings.width / 2 * 15, game.settings.height / 4 * 15)
+        pygame.display.set_mode((game.settings.width * 25, game.settings.height * 15)).fill(white)
+        screen.fill(black)
+        screen.blit(snakebackground, (game.settings.width * 5, game.settings.height / 3))
+        message_display('Customise game', 350, game.settings.height * 6, white)
 
-        button('Over and Under', 100, 140, 100, 40, green, green, game_loop_over_and_under, 'human')
-        button('No Boundaries', 230, 140, 100, 40, green, green, game_loop_no_boundaries, 'human')
+        button('Over and Under', 180, 200, 100, 40, green, green, game_loop_over_and_under, 'human')
+        button('No Boundaries', 300, 200, 100, 40, green, green, game_loop_no_boundaries, 'human')
 
-        button('Easy', 100, 200, 100, 40, green, green, game_loop_easy, 'human')
-        button('Medium', 230, 200, 100, 40, green, green, game_loop, 'human')
-        button('Hard', 165, 260, 100, 40, green, green, game_loop, 'human')
+        button('Easy', 180, 260, 100, 40, green, green, game_loop_easy, 'human')
+        button('Medium', 300, 260, 100, 40, green, green, game_loop, 'human')
+        button('Hard', 420, 260, 100, 40, green, green, game_loop, 'human')
 
-        button('Exit', 175, 340, 80, 30, red, red, initial_interface)
+        button('Exit', 300, 340, 100, 30, red, red, initial_interface)
 
         pygame.display.update()
         pygame.time.Clock().tick(20)
@@ -122,6 +130,7 @@ def settings_interface():
 def game_loop(player, fps=10): #DEFAULT GAME
     game.restart_game()
     while not game.game_end():
+        screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
         pygame.event.pump()
         move = human_move()
         fps = 5
@@ -138,6 +147,7 @@ def game_loop(player, fps=10): #DEFAULT GAME
 def game_loop_over_and_under(player, fps=10): #WONT DIE FROM HITTING SELF
     game.restart_game()
     while not game.game_end_over_and_under():
+        screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
         pygame.event.pump()
         move = human_move()
         fps = 10
@@ -154,6 +164,7 @@ def game_loop_over_and_under(player, fps=10): #WONT DIE FROM HITTING SELF
 def game_loop_no_boundaries(player, fps=10): #CAN CROSS OVER WALLS
     game.restart_game()
     while not game.game_end():
+        screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
         pygame.event.pump()
         move = human_move()
         fps = 10
@@ -170,6 +181,7 @@ def game_loop_no_boundaries(player, fps=10): #CAN CROSS OVER WALLS
 def game_loop_easy(player, fps=10):
     game.restart_game()
     while not game.game_end():
+        screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
         pygame.event.pump()
         move = human_move()
         fps = 5
@@ -182,7 +194,6 @@ def game_loop_easy(player, fps=10):
         fpsClock.tick(fps)
 
     crash()
-
 
 def human_move():
     direction = snake.facing
