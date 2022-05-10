@@ -15,19 +15,32 @@ class Settings:
         self.rect_len = 15
 
 class Snake:
-    def __init__(self):
-        
-        self.image_up = pygame.image.load('images/head_up.bmp')
-        self.image_down = pygame.image.load('images/head_down.bmp')
-        self.image_left = pygame.image.load('images/head_left.bmp')
-        self.image_right = pygame.image.load('images/head_right.bmp')
+    def __init__(self, color):
 
-        self.tail_up = pygame.image.load('images/tail_up.bmp')
-        self.tail_down = pygame.image.load('images/tail_down.bmp')
-        self.tail_left = pygame.image.load('images/tail_left.bmp')
-        self.tail_right = pygame.image.load('images/tail_right.bmp')
+        self.color = color
+
+        if self.color.lower() == 'green':
+            filesource = 'images/green/'
+        if self.color.lower() == 'red':
+            filesource = 'images/red/'
+        if self.color.lower() == 'blue':
+            filesource = 'images/blue'
+        if self.color.lower() == 'yellow':
+            filesource = 'images/yellow'
+
+        #create subfolders in the images folder for each distinct snake colour
+        
+        self.image_up = pygame.image.load(filesource + 'head_up.bmp')
+        self.image_down = pygame.image.load(filesource + 'head_down.bmp')
+        self.image_left = pygame.image.load(filesource + 'head_left.bmp')
+        self.image_right = pygame.image.load(filesource + 'head_right.bmp')
+
+        self.tail_up = pygame.image.load(filesource + 'tail_up.bmp')
+        self.tail_down = pygame.image.load(filesource + 'tail_down.bmp')
+        self.tail_left = pygame.image.load(filesource + 'tail_left.bmp')
+        self.tail_right = pygame.image.load(filesource + 'tail_right.bmp')
             
-        self.image_body = pygame.image.load('images/body.bmp')
+        self.image_body = pygame.image.load(filesource + 'body.bmp')
 
         self.facing = "right"
         self.initialize()
@@ -139,7 +152,7 @@ class Game:
 
     def __init__(self):
         self.settings = Settings()
-        self.snake = Snake()
+        self.snake = Snake('green')
         self.strawberry = Strawberry(self.settings)
         self.move_dict = {0 : 'up',
                           1 : 'down',
@@ -227,35 +240,35 @@ class Game:
         return reward
 
 
-        move_dict = self.move_dict
+        # move_dict = self.move_dict
         
-        change_direction = move_dict[move]
+        # change_direction = move_dict[move]
         
-        if change_direction == 'right' and not self.snake.facing == 'left':
-            self.snake.facing = change_direction
-        if change_direction == 'left' and not self.snake.facing == 'right':
-            self.snake.facing = change_direction
-        if change_direction == 'up' and not self.snake.facing == 'down':
-            self.snake.facing = change_direction
-        if change_direction == 'down' and not self.snake.facing == 'up':
-            self.snake.facing = change_direction
+        # if change_direction == 'right' and not self.snake.facing == 'left':
+        #     self.snake.facing = change_direction
+        # if change_direction == 'left' and not self.snake.facing == 'right':
+        #     self.snake.facing = change_direction
+        # if change_direction == 'up' and not self.snake.facing == 'down':
+        #     self.snake.facing = change_direction
+        # if change_direction == 'down' and not self.snake.facing == 'up':
+        #     self.snake.facing = change_direction
 
-        self.snake.update()
+        # self.snake.update()
         
-        if self.snake.position == self.strawberry.position:
-            self.strawberry.random_pos(self.snake)
-            reward = 1
-            self.snake.score += 1
-            self.snake.segments.reverse()
+        # if self.snake.position == self.strawberry.position:
+        #     self.strawberry.random_pos(self.snake)
+        #     reward = 1
+        #     self.snake.score += 1
+        #     self.snake.segments.reverse()
             
-        else:
-            self.snake.segments.pop()
-            reward = 0
+        # else:
+        #     self.snake.segments.pop()
+        #     reward = 0
                 
-        if self.game_end():
-            return -1
+        # if self.game_end():
+        #     return -1
                     
-        return reward
+        # return reward
     
     def game_end(self):
         end = False
