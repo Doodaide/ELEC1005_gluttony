@@ -8,6 +8,7 @@ import time
 from pygame.locals import KEYDOWN, K_RIGHT, K_LEFT, K_UP, K_DOWN, K_ESCAPE
 from pygame.locals import QUIT
 from game import Game
+from game import Snake
 
 black = pygame.Color(0, 0, 0)
 white = pygame.Color(255, 255, 255)
@@ -21,7 +22,7 @@ bright_blue = pygame.Color(32, 200, 200)
 yellow = pygame.Color(255, 205, 0)
 bright_yellow = pygame.Color(255, 255, 0)
 
-game = Game()
+game = Game(Snake('green'))
 rect_len = game.settings.rect_len
 snake = game.snake
 pygame.init()
@@ -143,7 +144,6 @@ def settings_interface(player, color):
         pygame.display.update()
         pygame.time.Clock().tick(20)
 
-
 def color_interface():
     intro = True
     while intro:
@@ -199,17 +199,23 @@ def color_interface():
 # Gamemodes: 
 # Over and under - don't die from hitting yourself
 def game_loop_over_and_under(player, color, fps=10): 
-    game.restart_game(color)
-    while not game.game_end_over_and_under():
-        screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
+    
+    global game
+    gamee = Game(Snake(color))
+
+    global snake
+    snake = gamee.snake
+
+    gamee.restart_game()
+    while not gamee.game_end_over_and_under():
         pygame.event.pump()
         move = human_move()
         fps = 10
-        game.do_move_normal(move)
+        gamee.do_move_normal(move)
         screen.fill(black)
-        game.snake.blit(rect_len, screen)
-        game.strawberry.blit(screen)
-        game.blit_score(white, screen)
+        gamee.snake.blit(rect_len, screen)
+        gamee.strawberry.blit(screen)
+        gamee.blit_score(white, screen)
         pygame.display.flip()
         fpsClock.tick(fps)
     
@@ -217,17 +223,23 @@ def game_loop_over_and_under(player, color, fps=10):
 
 # No boundaries - CAN CROSS OVER WALLS
 def game_loop_no_boundaries(player, color, fps=10): 
-    game.restart_game(color)
-    while not game.game_end():
-        screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
+    
+    global game
+    gamee = Game(Snake(color))
+
+    global snake
+    snake = gamee.snake
+    
+    gamee.restart_game()
+    while not gamee.game_end():
         pygame.event.pump()
         move = human_move()
         fps = 10
-        game.do_move_no_boundaries(move)
+        gamee.do_move_no_boundaries(move)
         screen.fill(black)
-        game.snake.blit(rect_len, screen)
-        game.strawberry.blit(screen)
-        game.blit_score(white, screen)
+        gamee.snake.blit(rect_len, screen)
+        gamee.strawberry.blit(screen)
+        gamee.blit_score(white, screen)
         pygame.display.flip()
         fpsClock.tick(fps)
 
@@ -235,18 +247,24 @@ def game_loop_no_boundaries(player, color, fps=10):
 
 # Progressive difficulty - increases difficulty as time increments
 def game_loop_progressive(player, color, fps=10):
-    game.restart_game(color)
+
+    global game
+    gamee = Game(Snake(color))
+
+    global snake
+    snake = gamee.snake
+
+    gamee.restart_game()
     i = 0
-    while not game.game_end():
-        screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
+    while not gamee.game_end():
         pygame.event.pump()
         move = human_move()
         fps = 10 + i
-        game.do_move_normal(move)
+        gamee.do_move_normal(move)
         screen.fill(black)
-        game.snake.blit(rect_len, screen)
-        game.strawberry.blit(screen)
-        game.blit_score(white, screen)
+        gamee.snake.blit(rect_len, screen)
+        gamee.strawberry.blit(screen)
+        gamee.blit_score(white, screen)
         pygame.display.flip()
         fpsClock.tick(fps)
         i += 0.02
@@ -255,17 +273,23 @@ def game_loop_progressive(player, color, fps=10):
 
 # Easy difficulty - slow snake
 def game_loop_easy(player, color, fps=10):
-    game.restart_game(color)
-    while not game.game_end():
-        screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
+
+    global game
+    gamee = Game(Snake(color))
+
+    global snake
+    snake = gamee.snake
+
+    gamee.restart_game()
+    while not gamee.game_end():
         pygame.event.pump()
         move = human_move()
         fps = 5
-        game.do_move_normal(move)
+        gamee.do_move_normal(move)
         screen.fill(black)
-        game.snake.blit(rect_len, screen)
-        game.strawberry.blit(screen)
-        game.blit_score(white, screen)
+        gamee.snake.blit(rect_len, screen)
+        gamee.strawberry.blit(screen)
+        gamee.blit_score(white, screen)
         pygame.display.flip()
         fpsClock.tick(fps)
 
@@ -273,17 +297,23 @@ def game_loop_easy(player, color, fps=10):
 
 # Medium difficulty - faster snake
 def game_loop_medium(player, color, fps=10):
-    game.restart_game(color)
-    while not game.game_end():
-        screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
+
+    global game
+    gamee = Game(Snake(color))
+
+    global snake
+    snake = gamee.snake
+
+    gamee.restart_game()
+    while not gamee.game_end():
         pygame.event.pump()
         move = human_move()
         fps = 10
-        game.do_move_normal(move)
+        gamee.do_move_normal(move)
         screen.fill(black)
-        game.snake.blit(rect_len, screen)
-        game.strawberry.blit(screen)
-        game.blit_score(white, screen)
+        gamee.snake.blit(rect_len, screen)
+        gamee.strawberry.blit(screen)
+        gamee.blit_score(white, screen)
         pygame.display.flip()
         fpsClock.tick(fps)
 
@@ -291,17 +321,23 @@ def game_loop_medium(player, color, fps=10):
 
 # Hard difficulty - fastest snake
 def game_loop_hard(player, color, fps=10):
-    game.restart_game(color)
-    while not game.game_end():
-        screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
+
+    global game
+    gamee = Game(Snake(color))
+
+    global snake
+    snake = gamee.snake
+
+    gamee.restart_game()
+    while not gamee.game_end():
         pygame.event.pump()
         move = human_move()
         fps = 15
-        game.do_move_normal(move)
+        gamee.do_move_normal(move)
         screen.fill(black)
-        game.snake.blit(rect_len, screen)
-        game.strawberry.blit(screen)
-        game.blit_score(white, screen)
+        gamee.snake.blit(rect_len, screen)
+        gamee.strawberry.blit(screen)
+        gamee.blit_score(white, screen)
         pygame.display.flip()
         fpsClock.tick(fps)
 

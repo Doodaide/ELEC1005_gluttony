@@ -173,20 +173,22 @@ class Strawberry():
 # Game class          
 class Game:
 
-    def __init__(self):
+    def __init__(self, snake):
         # starts settings, makes snake, strawberries, and assigns movement 
         self.settings = Settings()
-        self.snake = Snake('green')
+        self.snake = snake
         self.strawberry = Strawberry(self.settings)
         self.move_dict = {0 : 'up',
                           1 : 'down',
                           2 : 'left',
                           3 : 'right'}       
     # This method restarts the game and re-initialises the snake and food item      
-    def restart_game(self, color):
-        self.snake.color = color
+    def restart_game(self):
         self.snake.initialize()
         self.strawberry.initialize()
+
+    def change_snake(self, color):
+        self.snake.color = color
 
     def current_state(self):         
         state = np.zeros((self.settings.width+2, self.settings.height+2, 2))
