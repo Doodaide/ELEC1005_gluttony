@@ -31,13 +31,12 @@ pygame.display.set_caption('Gluttonous')
 
 crash_sound = pygame.mixer.Sound('./sound/crash.wav')
 
-# Renders text 
+
 def text_objects(text, font, color=black):
     text_surface = font.render(text, True, color)
     return text_surface, text_surface.get_rect()
 
-# Displays a text message in comic sans size 50 (large text)
-# centres text (probably)
+
 def message_display(text, x, y, color=black):
     large_text = pygame.font.SysFont('comicsansms', 50)
     text_surf, text_rect = text_objects(text, large_text, color)
@@ -45,11 +44,7 @@ def message_display(text, x, y, color=black):
     screen.blit(text_surf, text_rect)
     pygame.display.update()
 
-<<<<<<< HEAD
 
-=======
-# Displays a small message
->>>>>>> 37c71c25cc269ba37cb1c6dc3a0a0e45a607a68b
 def small_message_display(text, x, y, color=white):
     large_text = pygame.font.SysFont('comicsansms', 20)
     text_surf, text_rect = text_objects(text, large_text, color)
@@ -57,12 +52,7 @@ def small_message_display(text, x, y, color=white):
     screen.blit(text_surf, text_rect)
     pygame.display.update()
 
-<<<<<<< HEAD
 
-=======
-# This function encodes the properties of the buttons used on the GUI. 
-# Takes args of the message to be displayed, size, position, colours, etc.
->>>>>>> 37c71c25cc269ba37cb1c6dc3a0a0e45a607a68b
 def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter=None, parameter2=None):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -81,40 +71,26 @@ def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter
     TextRect.center = (x + (w / 2), y + (h / 2))
     screen.blit(TextSurf, TextRect)
 
-<<<<<<< HEAD
 
-=======
-# This is the quit option that closes pygame 
->>>>>>> 37c71c25cc269ba37cb1c6dc3a0a0e45a607a68b
 def quitgame():
     pygame.quit()
     quit()
 
-<<<<<<< HEAD
 
-=======
-# On the event of a crash, the sound is played in conjunction with a large message
->>>>>>> 37c71c25cc269ba37cb1c6dc3a0a0e45a607a68b
 def crash():
     pygame.mixer.Sound.play(crash_sound)
     message_display('crashed', game.settings.width / 2 * 15, game.settings.height / 3 * 15, white)
     time.sleep(1)
 
-<<<<<<< HEAD
 
-=======
-# Possible future implementation
->>>>>>> 37c71c25cc269ba37cb1c6dc3a0a0e45a607a68b
 snakebackground = {'green': pygame.image.load('images/snakeicongreen.png'),
                     'blue': pygame.image.load('images/snakeiconblue.png'),
                     'red': pygame.image.load('images/snakeiconred.png'),
                     'purple': pygame.image.load('images/snakeiconpurple.png'),
                     'orange': pygame.image.load('images/snakeiconorange.png'),
-                    'yellow': pygame.image.load('images/snakeiconyellow.png'),
-                    'pink': pygame.image.load('images/snakeiconpink.png')}
+                    'yellow': pygame.image.load('images/snakeiconyellow.png')}
 
 
-# Sets up the initial interface with the customization buttons, skin selection, etc. 
 def initial_interface():
     intro = True
     while intro:
@@ -136,6 +112,7 @@ def initial_interface():
 
         pygame.display.update()
         pygame.time.Clock().tick(15)
+
 
 def settings_interface(player, color):
     intro = True
@@ -184,42 +161,16 @@ def color_interface():
         message_display('Choose Your Snake', 350, game.settings.height * 2, white)
 
         #Colour interface
+        button('Blue:', 60, 120, 80, 40, blue, bright_blue, settings_interface, 'player', 'blue')
+        small_message_display('*insert image of blue*', 240, 140, white)
 
-        #Green Snake
-        button('', 120,120,200,60,black,black, settings_interface, 'player', 'green')
-        snakegreen = pygame.transform.scale(snakebackground['green'], (200,50))
-        screen.blit(snakegreen, (game.settings.width * 4, game.settings.height * 4))
+        button('Red:', 60, 180, 80, 40, blue, bright_blue, settings_interface, 'player', 'red')
+        small_message_display('*insert image of red*', 240, 200, white)
 
-        #Blue Snake
-        button('', 120,180,200,60,black,black, settings_interface, 'player', 'blue')
-        snakeblue = pygame.transform.scale(snakebackground['blue'], (200,50))
-        screen.blit(snakeblue, (game.settings.width * 4, game.settings.height * 6))
+        button('Yellow:', 60, 240, 80, 40, blue, bright_blue, settings_interface, 'player', 'yellow')
+        small_message_display('*insert image of red*', 240, 260, white)
 
-        #Red Snake
-        button('', 120,240,200,60,black,black, settings_interface, 'player', 'red')
-        snakered = pygame.transform.scale(snakebackground['red'], (200,50))
-        screen.blit(snakered, (game.settings.width * 4, game.settings.height * 8))
-
-        #Yellow Snake
-        button('', 120,300,200,60,black,black, settings_interface, 'player', 'yellow')
-        snakeyellow = pygame.transform.scale(snakebackground['yellow'], (200,50))
-        screen.blit(snakeyellow, (game.settings.width * 4, game.settings.height * 10))
-
-        #Purple Snake
-        button('', 380,120,200,60,black,black, settings_interface, 'player', 'purple')
-        snakepurple = pygame.transform.scale(snakebackground['purple'], (200,50))
-        screen.blit(snakepurple, (game.settings.width * 13, game.settings.height * 4))
-
-        #Pink Snake
-        button('', 380,180,200,60,black,black, settings_interface, 'player', 'pink')
-        snakepink = pygame.transform.scale(snakebackground['pink'], (200,50))
-        screen.blit(snakepink, (game.settings.width * 13, game.settings.height * 6))
-
-        #Orange Snake
-        button('', 380,240,200,60,black,black, settings_interface, 'player', 'orange')
-        snakeorange = pygame.transform.scale(snakebackground['orange'], (200,50))
-        screen.blit(snakeorange, (game.settings.width * 13, game.settings.height * 8))
-
+        button('Green:', 60, 300, 80, 40, blue, bright_blue, settings_interface, 'player', 'green')
 
         # button('Option 5:', 340, 120, 80, 40, blue, bright_blue, settings_interface)
         # button('Option 6:', 340, 180, 80, 40, blue, bright_blue, settings_interface)
@@ -339,7 +290,7 @@ def game_loop_hard(player, color, fps=10):
 
     crash()
 
-# returns the corresponding move detected by human input
+# returns the corresponding move 
 def human_move():
     direction = snake.facing
 

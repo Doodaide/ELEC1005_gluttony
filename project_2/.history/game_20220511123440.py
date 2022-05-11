@@ -182,9 +182,9 @@ class Game:
                           1 : 'down',
                           2 : 'left',
                           3 : 'right'}       
-    # This method restarts the game and re-initialises the snake and food item      
-    def restart_game(self, color):
-        self.snake.color = color
+        
+    # This method restarts the game and re-initialises the snake and food item    
+    def restart_game(self):
         self.snake.initialize()
         self.strawberry.initialize()
 

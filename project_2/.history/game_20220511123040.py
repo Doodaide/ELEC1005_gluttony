@@ -182,9 +182,9 @@ class Game:
                           1 : 'down',
                           2 : 'left',
                           3 : 'right'}       
-    # This method restarts the game and re-initialises the snake and food item      
-    def restart_game(self, color):
-        self.snake.color = color
+        
+    # This method restarts the game and re-initialises the snake and food item    
+    def restart_game(self):
         self.snake.initialize()
         self.strawberry.initialize()
 
@@ -266,7 +266,7 @@ class Game:
                     
         return reward
         
-    # If the snake hits itself, game over
+    
     def game_end(self):
         end = False
         if self.snake.position[0] >= self.settings.width or self.snake.position[0] < 0:
@@ -278,8 +278,6 @@ class Game:
 
         return end
 
-    # For the over_and_under gammode, if the snake hits itself the game shouldn't end
-    # Thus, a new method must be defined
     def game_end_over_and_under(self):
         end = False
         if self.snake.position[0] >= self.settings.width or self.snake.position[0] < 0:
@@ -289,7 +287,6 @@ class Game:
 
         return end
     
-    #This method renders a score for the user to see at a certain position on screen. 
     def blit_score(self, color, screen):
         font = pygame.font.SysFont(None, 25)
         text = font.render('Score: ' + str(self.snake.score), True, color)
