@@ -115,7 +115,7 @@ def initial_interface():
         pygame.display.update()
         pygame.time.Clock().tick(15)
 
-# once you go into settings, you can choose options to customize your experience
+# once you go into settings, you can choose 
 def settings_interface(player, color):
     intro = True
     while intro:

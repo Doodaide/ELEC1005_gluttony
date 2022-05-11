@@ -92,7 +92,7 @@ snakebackground = {'green': pygame.image.load('images/snakeicongreen.png'),
                     'orange': pygame.image.load('images/snakeiconorange.png'),
                     'yellow': pygame.image.load('images/snakeiconyellow.png')}
 
-# Sets up the initial interface with the customization buttons, skin selection, etc. 
+# Sets up the initial interface 
 def initial_interface():
     intro = True
     while intro:
@@ -115,7 +115,7 @@ def initial_interface():
         pygame.display.update()
         pygame.time.Clock().tick(15)
 
-# once you go into settings, you can choose options to customize your experience
+
 def settings_interface(player, color):
     intro = True
     while intro:
