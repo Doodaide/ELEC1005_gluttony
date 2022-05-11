@@ -119,7 +119,6 @@ def settings_interface(player, color):
                 pygame.quit()
         
         
-        pygame.display.set_mode((game.settings.width * 25, game.settings.height * 15)).fill(white)
         screen.fill(black)
 
         #Snake icon to change colour
