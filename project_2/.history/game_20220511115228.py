@@ -8,7 +8,6 @@ import pygame, random
 import numpy as np
 
 # Settings class initialises the width, height, and length of the settings object
-# No other class methods 
 class Settings:
     def __init__(self):
         # 屏幕属性
@@ -16,14 +15,11 @@ class Settings:
         self.height = 28
         self.rect_len = 15
 
-# Snake class - makes the controllable snake object the player interacts with
 class Snake:
     def __init__(self, color):
-        
-        # Attribute of snake object: colour 
+
         self.color = color
 
-        # This section controls the snake's customizable colouring 
         if self.color.lower() == 'green':
             filesource = '_g'
         if self.color.lower() == 'red':

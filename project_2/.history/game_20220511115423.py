@@ -20,10 +20,8 @@ class Settings:
 class Snake:
     def __init__(self, color):
         
-        # Attribute of snake object: colour 
         self.color = color
 
-        # This section controls the snake's customizable colouring 
         if self.color.lower() == 'green':
             filesource = '_g'
         if self.color.lower() == 'red':
