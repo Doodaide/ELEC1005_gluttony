@@ -45,11 +45,6 @@ def message_display(text, x, y, color=black):
     screen.blit(text_surf, text_rect)
     pygame.display.update()
 
-<<<<<<< HEAD
-
-=======
-# Displays a small message
->>>>>>> 37c71c25cc269ba37cb1c6dc3a0a0e45a607a68b
 def small_message_display(text, x, y, color=white):
     large_text = pygame.font.SysFont('comicsansms', 20)
     text_surf, text_rect = text_objects(text, large_text, color)
@@ -57,12 +52,6 @@ def small_message_display(text, x, y, color=white):
     screen.blit(text_surf, text_rect)
     pygame.display.update()
 
-<<<<<<< HEAD
-
-=======
-# This function encodes the properties of the buttons used on the GUI. 
-# Takes args of the message to be displayed, size, position, colours, etc.
->>>>>>> 37c71c25cc269ba37cb1c6dc3a0a0e45a607a68b
 def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter=None, parameter2=None):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
