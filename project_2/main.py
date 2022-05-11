@@ -52,7 +52,6 @@ def small_message_display(text, x, y, color=white):
     screen.blit(text_surf, text_rect)
     pygame.display.update()
 
-
 def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter=None, parameter2=None):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -75,14 +74,17 @@ def quitgame():
     pygame.quit()
     quit()
 
-
 def crash():
     pygame.mixer.Sound.play(crash_sound)
     message_display('crashed', game.settings.width / 2 * 15, game.settings.height / 3 * 15, white)
     time.sleep(1)
 
-snakebackground = {'green': pygame.image.load('images/snakeicongreen.png'), 'blue': pygame.image.load('images/snakeiconblue.png'), 'red': pygame.image.load('images/snakeiconred.png'), 'yellow': pygame.image.load('images/snakeiconyellow.png')}
-
+snakebackground = {'green': pygame.image.load('images/snakeicongreen.png'),
+                    'blue': pygame.image.load('images/snakeiconblue.png'),
+                    'red': pygame.image.load('images/snakeiconred.png'),
+                    'purple': pygame.image.load('images/snakeiconpurple.png'),
+                    'orange': pygame.image.load('images/snakeiconorange.png'),
+                    'yellow': pygame.image.load('images/snakeiconyellow.png')}
 
 def initial_interface():
     intro = True
@@ -100,6 +102,7 @@ def initial_interface():
         button('Go!', 230, 240, 80, 40, green, bright_green, game_loop_easy, 'human', 'green')
         button('Quit', 390, 240, 80, 40, red, bright_red, quitgame)
 
+        #settings interface link
         button('Settings', 310, 300, 80, 40, yellow, bright_yellow, settings_interface,'human', 'green')
 
         pygame.display.update()
@@ -115,12 +118,16 @@ def settings_interface(player, color):
         
         pygame.display.set_mode((game.settings.width * 25, game.settings.height * 15)).fill(white)
         screen.fill(black)
+
+        #Snake icon to change colour
         button('', 150, 40, 350, 70, black, black, color_interface)
         screen.blit(snakebackground[color], (game.settings.width * 5, game.settings.height / 3))
+
+
         message_display('Customise game', 350, game.settings.height * 6, white)
         small_message_display('*click me*', 155, 75, white)
         
-
+        #Customise Game Modes
         button('Over and Under', 180, 200, 100, 40, green, green, game_loop_over_and_under, 'human', color)
         button('No Boundaries', 300, 200, 100, 40, green, green, game_loop_no_boundaries, 'human', color)
 
@@ -145,6 +152,7 @@ def color_interface():
         
         message_display('Choose Your Snake', 350, game.settings.height * 2, white)
 
+        #Colour interface
         button('Blue:', 60, 120, 80, 40, blue, bright_blue, settings_interface, 'player', 'blue')
         small_message_display('*insert image of blue*', 240, 140, white)
 
