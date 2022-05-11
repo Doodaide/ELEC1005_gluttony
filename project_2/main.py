@@ -220,11 +220,6 @@ def color_interface():
         snakeorange = pygame.transform.scale(snakebackground['orange'], (200,50))
         screen.blit(snakeorange, (game.settings.width * 13, game.settings.height * 8))
 
-
-        # button('Option 5:', 340, 120, 80, 40, blue, bright_blue, settings_interface)
-        # button('Option 6:', 340, 180, 80, 40, blue, bright_blue, settings_interface)
-        # button('Option 7:', 340, 240, 80, 40, blue, bright_blue, settings_interface)
-
         pygame.display.update()
         pygame.time.Clock().tick(15)
 
