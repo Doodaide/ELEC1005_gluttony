@@ -174,7 +174,7 @@ class Strawberry():
 class Game:
 
     def __init__(self):
-        # starts settings, makes snake, strawberries, and assigns movement 
+        # starts settings, makes snake 
         self.settings = Settings()
         self.snake = Snake('green')
         self.strawberry = Strawberry(self.settings)
@@ -183,7 +183,6 @@ class Game:
                           2 : 'left',
                           3 : 'right'}       
         
-    # This method restarts the game and re-initialises the snake and food item    
     def restart_game(self):
         self.snake.initialize()
         self.strawberry.initialize()
@@ -206,7 +205,6 @@ class Game:
         direction_dict = {value : key for key,value in self.move_dict.items()}
         return direction_dict[direction]
         
-    # This method moves the snake based on inputs     
     def do_move_normal(self, move):
         move_dict = self.move_dict
         
@@ -236,7 +234,6 @@ class Game:
                     
         return reward
 
-    # For the no_boundaries gamemode, a new set of movements must be defined
     def do_move_no_boundaries(self, move):
         move_dict = self.move_dict
         
@@ -266,7 +263,7 @@ class Game:
                     
         return reward
         
-    # If the snake hits itself, game over
+    
     def game_end(self):
         end = False
         if self.snake.position[0] >= self.settings.width or self.snake.position[0] < 0:
@@ -278,8 +275,6 @@ class Game:
 
         return end
 
-    # For the over_and_under gammode, if the snake hits itself the game shouldn't end
-    # Thus, a new method must be defined
     def game_end_over_and_under(self):
         end = False
         if self.snake.position[0] >= self.settings.width or self.snake.position[0] < 0:
@@ -289,7 +284,6 @@ class Game:
 
         return end
     
-    #This method renders a score for the user to see at a certain position on screen. 
     def blit_score(self, color, screen):
         font = pygame.font.SysFont(None, 25)
         text = font.render('Score: ' + str(self.snake.score), True, color)

@@ -289,7 +289,6 @@ class Game:
 
         return end
     
-    #This method renders a score for the user to see at a certain position on screen. 
     def blit_score(self, color, screen):
         font = pygame.font.SysFont(None, 25)
         text = font.render('Score: ' + str(self.snake.score), True, color)

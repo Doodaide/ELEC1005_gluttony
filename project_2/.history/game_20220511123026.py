@@ -236,7 +236,7 @@ class Game:
                     
         return reward
 
-    # For the no_boundaries gamemode, a new set of movements must be defined
+    
     def do_move_no_boundaries(self, move):
         move_dict = self.move_dict
         
@@ -266,7 +266,7 @@ class Game:
                     
         return reward
         
-    # If the snake hits itself, game over
+    
     def game_end(self):
         end = False
         if self.snake.position[0] >= self.settings.width or self.snake.position[0] < 0:
@@ -278,8 +278,6 @@ class Game:
 
         return end
 
-    # For the over_and_under gammode, if the snake hits itself the game shouldn't end
-    # Thus, a new method must be defined
     def game_end_over_and_under(self):
         end = False
         if self.snake.position[0] >= self.settings.width or self.snake.position[0] < 0:
@@ -289,7 +287,6 @@ class Game:
 
         return end
     
-    #This method renders a score for the user to see at a certain position on screen. 
     def blit_score(self, color, screen):
         font = pygame.font.SysFont(None, 25)
         text = font.render('Score: ' + str(self.snake.score), True, color)
