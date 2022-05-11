@@ -7,7 +7,6 @@ import pygame
 import time
 from pygame.locals import KEYDOWN, K_RIGHT, K_LEFT, K_UP, K_DOWN, K_ESCAPE
 from pygame.locals import QUIT
-
 from game import Game
 
 black = pygame.Color(0, 0, 0)
@@ -32,12 +31,13 @@ pygame.display.set_caption('Gluttonous')
 
 crash_sound = pygame.mixer.Sound('./sound/crash.wav')
 
-
+# Renders text 
 def text_objects(text, font, color=black):
     text_surface = font.render(text, True, color)
     return text_surface, text_surface.get_rect()
 
-
+# Displays a text message in comic sans size 50 (large text)
+# centres text (probably)
 def message_display(text, x, y, color=black):
     large_text = pygame.font.SysFont('comicsansms', 50)
     text_surf, text_rect = text_objects(text, large_text, color)
@@ -45,12 +45,14 @@ def message_display(text, x, y, color=black):
     screen.blit(text_surf, text_rect)
     pygame.display.update()
 
+
 def small_message_display(text, x, y, color=white):
     large_text = pygame.font.SysFont('comicsansms', 20)
     text_surf, text_rect = text_objects(text, large_text, color)
     text_rect.center = (x, y)
     screen.blit(text_surf, text_rect)
     pygame.display.update()
+
 
 def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter=None, parameter2=None):
     mouse = pygame.mouse.get_pos()
@@ -70,21 +72,26 @@ def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter
     TextRect.center = (x + (w / 2), y + (h / 2))
     screen.blit(TextSurf, TextRect)
 
+
 def quitgame():
     pygame.quit()
     quit()
+
 
 def crash():
     pygame.mixer.Sound.play(crash_sound)
     message_display('crashed', game.settings.width / 2 * 15, game.settings.height / 3 * 15, white)
     time.sleep(1)
 
+
 snakebackground = {'green': pygame.image.load('images/snakeicongreen.png'),
                     'blue': pygame.image.load('images/snakeiconblue.png'),
                     'red': pygame.image.load('images/snakeiconred.png'),
                     'purple': pygame.image.load('images/snakeiconpurple.png'),
                     'orange': pygame.image.load('images/snakeiconorange.png'),
-                    'yellow': pygame.image.load('images/snakeiconyellow.png')}
+                    'yellow': pygame.image.load('images/snakeiconyellow.png'),
+                    'pink': pygame.image.load('images/snakeiconpink.png')}
+
 
 def initial_interface():
     intro = True
@@ -107,7 +114,8 @@ def initial_interface():
 
         pygame.display.update()
         pygame.time.Clock().tick(15)
-        
+
+
 def settings_interface(player, color):
     intro = True
     while intro:
@@ -141,6 +149,7 @@ def settings_interface(player, color):
         pygame.display.update()
         pygame.time.Clock().tick(20)
 
+
 def color_interface():
     intro = True
     while intro:
@@ -154,16 +163,42 @@ def color_interface():
         message_display('Choose Your Snake', 350, game.settings.height * 2, white)
 
         #Colour interface
-        button('Blue:', 60, 120, 80, 40, blue, bright_blue, settings_interface, 'player', 'blue')
-        small_message_display('*insert image of blue*', 240, 140, white)
 
-        button('Red:', 60, 180, 80, 40, blue, bright_blue, settings_interface, 'player', 'red')
-        small_message_display('*insert image of red*', 240, 200, white)
+        #Green Snake
+        button('', 120,120,200,60,black,black, settings_interface, 'player', 'green')
+        snakegreen = pygame.transform.scale(snakebackground['green'], (200,50))
+        screen.blit(snakegreen, (game.settings.width * 4, game.settings.height * 4))
 
-        button('Yellow:', 60, 240, 80, 40, blue, bright_blue, settings_interface, 'player', 'yellow')
-        small_message_display('*insert image of red*', 240, 260, white)
+        #Blue Snake
+        button('', 120,180,200,60,black,black, settings_interface, 'player', 'blue')
+        snakeblue = pygame.transform.scale(snakebackground['blue'], (200,50))
+        screen.blit(snakeblue, (game.settings.width * 4, game.settings.height * 6))
 
-        button('Green:', 60, 300, 80, 40, blue, bright_blue, settings_interface, 'player', 'green')
+        #Red Snake
+        button('', 120,240,200,60,black,black, settings_interface, 'player', 'red')
+        snakered = pygame.transform.scale(snakebackground['red'], (200,50))
+        screen.blit(snakered, (game.settings.width * 4, game.settings.height * 8))
+
+        #Yellow Snake
+        button('', 120,300,200,60,black,black, settings_interface, 'player', 'yellow')
+        snakeyellow = pygame.transform.scale(snakebackground['yellow'], (200,50))
+        screen.blit(snakeyellow, (game.settings.width * 4, game.settings.height * 10))
+
+        #Purple Snake
+        button('', 380,120,200,60,black,black, settings_interface, 'player', 'purple')
+        snakepurple = pygame.transform.scale(snakebackground['purple'], (200,50))
+        screen.blit(snakepurple, (game.settings.width * 13, game.settings.height * 4))
+
+        #Pink Snake
+        button('', 380,180,200,60,black,black, settings_interface, 'player', 'pink')
+        snakepink = pygame.transform.scale(snakebackground['pink'], (200,50))
+        screen.blit(snakepink, (game.settings.width * 13, game.settings.height * 6))
+
+        #Orange Snake
+        button('', 380,240,200,60,black,black, settings_interface, 'player', 'orange')
+        snakeorange = pygame.transform.scale(snakebackground['orange'], (200,50))
+        screen.blit(snakeorange, (game.settings.width * 13, game.settings.height * 8))
+
 
         # button('Option 5:', 340, 120, 80, 40, blue, bright_blue, settings_interface)
         # button('Option 6:', 340, 180, 80, 40, blue, bright_blue, settings_interface)
@@ -172,7 +207,9 @@ def color_interface():
         pygame.display.update()
         pygame.time.Clock().tick(15)
 
-def game_loop_over_and_under(player, color, fps=10): #WONT DIE FROM HITTING SELF
+# Gamemodes: 
+# Over and under - don't die from hitting yourself
+def game_loop_over_and_under(player, color, fps=10): 
     game.restart_game(color)
     while not game.game_end_over_and_under():
         screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
@@ -189,7 +226,8 @@ def game_loop_over_and_under(player, color, fps=10): #WONT DIE FROM HITTING SELF
     
     crash()
 
-def game_loop_no_boundaries(player, color, fps=10): #CAN CROSS OVER WALLS
+# No boundaries - CAN CROSS OVER WALLS
+def game_loop_no_boundaries(player, color, fps=10): 
     game.restart_game(color)
     while not game.game_end():
         screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
@@ -206,6 +244,7 @@ def game_loop_no_boundaries(player, color, fps=10): #CAN CROSS OVER WALLS
 
     crash()
 
+# Progressive difficulty - increases difficulty as time increments
 def game_loop_progressive(player, color, fps=10):
     game.restart_game(color)
     i = 0
@@ -225,7 +264,7 @@ def game_loop_progressive(player, color, fps=10):
 
     crash()
 
-
+# Easy difficulty - slow snake
 def game_loop_easy(player, color, fps=10):
     game.restart_game(color)
     while not game.game_end():
@@ -243,6 +282,7 @@ def game_loop_easy(player, color, fps=10):
 
     crash()
 
+# Medium difficulty - faster snake
 def game_loop_medium(player, color, fps=10):
     game.restart_game(color)
     while not game.game_end():
@@ -260,6 +300,7 @@ def game_loop_medium(player, color, fps=10):
 
     crash()
 
+# Hard difficulty - fastest snake
 def game_loop_hard(player, color, fps=10):
     game.restart_game(color)
     while not game.game_end():
@@ -277,7 +318,7 @@ def game_loop_hard(player, color, fps=10):
 
     crash()
 
-
+# returns the corresponding move detected by human input
 def human_move():
     direction = snake.facing
 
