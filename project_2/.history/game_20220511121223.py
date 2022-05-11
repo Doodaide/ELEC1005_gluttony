@@ -64,7 +64,6 @@ class Snake:
         self.segments = [[6 - i, 6] for i in range(3)]
         self.score = 0
    
-    # Visualises the snake on the map 
     def blit_body(self, x, y, screen):
         screen.blit(self.image_body, (x, y))
         
@@ -108,10 +107,6 @@ class Snake:
             self.position[1] += 1
         self.segments.insert(0, list(self.position))
 
-    # A special function for the no_boundaries gamemode 
-    # When the snake encounters a "boundary position", 
-    # reset its head position to the other side of the "arena"
-    # Giving it the illusion that it passed through the side 
     def update_no_boundaries(self):
         if self.facing == 'right':
             if self.position[0] == 27:
@@ -138,8 +133,7 @@ class Snake:
                 self.position[1] += 1
 
         self.segments.insert(0, list(self.position))
-
-# Strawberry class - makes food objects the snake consumes         
+        
 class Strawberry():
     def __init__(self, settings):
         self.settings = settings

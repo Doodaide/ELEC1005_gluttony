@@ -40,7 +40,7 @@ class Snake:
             filesource = '_p'
         
 
-        #create subfolders in the images folder for each distinct snake colour
+        #create subfolders in the images folder for each distinct snake colou
         self.image_up = pygame.image.load('skin/head_up' + filesource + '.bmp')
         self.image_down = pygame.image.load('skin/head_down' + filesource + '.bmp')
         self.image_left = pygame.image.load('skin/head_left' + filesource + '.bmp')
@@ -55,16 +55,13 @@ class Snake:
 
         # starts the snake game facing right, and the game begins
         self.facing = "right"
-
-        #starts the snake at a pre-determined position at default 0 score
         self.initialize()
 
     def initialize(self):
         self.position = [6, 6]
         self.segments = [[6 - i, 6] for i in range(3)]
         self.score = 0
-   
-    # Visualises the snake on the map 
+
     def blit_body(self, x, y, screen):
         screen.blit(self.image_body, (x, y))
         
@@ -108,10 +105,6 @@ class Snake:
             self.position[1] += 1
         self.segments.insert(0, list(self.position))
 
-    # A special function for the no_boundaries gamemode 
-    # When the snake encounters a "boundary position", 
-    # reset its head position to the other side of the "arena"
-    # Giving it the illusion that it passed through the side 
     def update_no_boundaries(self):
         if self.facing == 'right':
             if self.position[0] == 27:
@@ -138,8 +131,7 @@ class Snake:
                 self.position[1] += 1
 
         self.segments.insert(0, list(self.position))
-
-# Strawberry class - makes food objects the snake consumes         
+        
 class Strawberry():
     def __init__(self, settings):
         self.settings = settings

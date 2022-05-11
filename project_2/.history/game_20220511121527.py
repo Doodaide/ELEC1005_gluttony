@@ -138,8 +138,7 @@ class Snake:
                 self.position[1] += 1
 
         self.segments.insert(0, list(self.position))
-
-# Strawberry class - makes food objects the snake consumes         
+        
 class Strawberry():
     def __init__(self, settings):
         self.settings = settings
