@@ -81,30 +81,15 @@ def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter
     TextRect.center = (x + (w / 2), y + (h / 2))
     screen.blit(TextSurf, TextRect)
 
-<<<<<<< HEAD
-
-=======
-# This is the quit option that closes pygame 
->>>>>>> 37c71c25cc269ba37cb1c6dc3a0a0e45a607a68b
 def quitgame():
     pygame.quit()
     quit()
 
-<<<<<<< HEAD
-
-=======
-# On the event of a crash, the sound is played in conjunction with a large message
->>>>>>> 37c71c25cc269ba37cb1c6dc3a0a0e45a607a68b
 def crash():
     pygame.mixer.Sound.play(crash_sound)
     message_display('crashed', game.settings.width / 2 * 15, game.settings.height / 3 * 15, white)
     time.sleep(1)
 
-<<<<<<< HEAD
-
-=======
-# Possible future implementation
->>>>>>> 37c71c25cc269ba37cb1c6dc3a0a0e45a607a68b
 snakebackground = {'green': pygame.image.load('images/snakeicongreen.png'),
                     'blue': pygame.image.load('images/snakeiconblue.png'),
                     'red': pygame.image.load('images/snakeiconred.png'),
