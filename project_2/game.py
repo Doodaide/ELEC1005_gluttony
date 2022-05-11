@@ -178,7 +178,8 @@ class Game:
                           2 : 'left',
                           3 : 'right'}       
         
-    def restart_game(self):
+    def restart_game(self, color):
+        self.snake.color = color
         self.snake.initialize()
         self.strawberry.initialize()
 
