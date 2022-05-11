@@ -37,7 +37,7 @@ def text_objects(text, font, color=black):
     return text_surface, text_surface.get_rect()
 
 # Displays a text message in comic sans size 50 (large text)
-# centres text (probably)
+
 def message_display(text, x, y, color=black):
     large_text = pygame.font.SysFont('comicsansms', 50)
     text_surf, text_rect = text_objects(text, large_text, color)
