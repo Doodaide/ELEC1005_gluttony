@@ -54,7 +54,7 @@ class Snake:
             
         self.image_body = pygame.image.load('skin/body' + filesource + '.bmp')
 
-        # starts the snake game facing right 
+
         self.facing = "right"
         self.initialize()
 
