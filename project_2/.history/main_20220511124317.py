@@ -290,7 +290,7 @@ def game_loop_hard(player, color, fps=10):
 
     crash()
 
-# returns the corresponding move detected by human input
+# returns the corresponding move 
 def human_move():
     direction = snake.facing
 

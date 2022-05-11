@@ -272,7 +272,7 @@ def game_loop_medium(player, color, fps=10):
 
     crash()
 
-# Hard difficulty - fastest snake
+
 def game_loop_hard(player, color, fps=10):
     game.restart_game(color)
     while not game.game_end():
@@ -290,7 +290,7 @@ def game_loop_hard(player, color, fps=10):
 
     crash()
 
-# returns the corresponding move detected by human input
+
 def human_move():
     direction = snake.facing
 

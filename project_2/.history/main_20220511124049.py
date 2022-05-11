@@ -82,14 +82,12 @@ def crash():
     message_display('crashed', game.settings.width / 2 * 15, game.settings.height / 3 * 15, white)
     time.sleep(1)
 
-
 snakebackground = {'green': pygame.image.load('images/snakeicongreen.png'),
                     'blue': pygame.image.load('images/snakeiconblue.png'),
                     'red': pygame.image.load('images/snakeiconred.png'),
                     'purple': pygame.image.load('images/snakeiconpurple.png'),
                     'orange': pygame.image.load('images/snakeiconorange.png'),
                     'yellow': pygame.image.load('images/snakeiconyellow.png')}
-
 
 def initial_interface():
     intro = True
@@ -112,8 +110,7 @@ def initial_interface():
 
         pygame.display.update()
         pygame.time.Clock().tick(15)
-
-
+        
 def settings_interface(player, color):
     intro = True
     while intro:
@@ -147,7 +144,6 @@ def settings_interface(player, color):
         pygame.display.update()
         pygame.time.Clock().tick(20)
 
-
 def color_interface():
     intro = True
     while intro:
@@ -179,9 +175,7 @@ def color_interface():
         pygame.display.update()
         pygame.time.Clock().tick(15)
 
-# Gamemodes: 
-# Over and under - don't die from hitting yourself
-def game_loop_over_and_under(player, color, fps=10): 
+def game_loop_over_and_under(player, color, fps=10): #WONT DIE FROM HITTING SELF
     game.restart_game(color)
     while not game.game_end_over_and_under():
         screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
@@ -198,8 +192,7 @@ def game_loop_over_and_under(player, color, fps=10):
     
     crash()
 
-# No boundaries - CAN CROSS OVER WALLS
-def game_loop_no_boundaries(player, color, fps=10): 
+def game_loop_no_boundaries(player, color, fps=10): #CAN CROSS OVER WALLS
     game.restart_game(color)
     while not game.game_end():
         screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
@@ -216,7 +209,6 @@ def game_loop_no_boundaries(player, color, fps=10):
 
     crash()
 
-# Progressive difficulty - increases difficulty as time increments
 def game_loop_progressive(player, color, fps=10):
     game.restart_game(color)
     i = 0
@@ -236,7 +228,7 @@ def game_loop_progressive(player, color, fps=10):
 
     crash()
 
-# Easy difficulty - slow snake
+
 def game_loop_easy(player, color, fps=10):
     game.restart_game(color)
     while not game.game_end():
@@ -254,7 +246,6 @@ def game_loop_easy(player, color, fps=10):
 
     crash()
 
-# Medium difficulty - faster snake
 def game_loop_medium(player, color, fps=10):
     game.restart_game(color)
     while not game.game_end():
@@ -272,7 +263,6 @@ def game_loop_medium(player, color, fps=10):
 
     crash()
 
-# Hard difficulty - fastest snake
 def game_loop_hard(player, color, fps=10):
     game.restart_game(color)
     while not game.game_end():
@@ -290,7 +280,7 @@ def game_loop_hard(player, color, fps=10):
 
     crash()
 
-# returns the corresponding move detected by human input
+
 def human_move():
     direction = snake.facing
 

@@ -216,7 +216,7 @@ def game_loop_no_boundaries(player, color, fps=10):
 
     crash()
 
-# Progressive difficulty - increases difficulty as time increments
+
 def game_loop_progressive(player, color, fps=10):
     game.restart_game(color)
     i = 0
@@ -236,7 +236,7 @@ def game_loop_progressive(player, color, fps=10):
 
     crash()
 
-# Easy difficulty - slow snake
+
 def game_loop_easy(player, color, fps=10):
     game.restart_game(color)
     while not game.game_end():
@@ -254,7 +254,7 @@ def game_loop_easy(player, color, fps=10):
 
     crash()
 
-# Medium difficulty - faster snake
+
 def game_loop_medium(player, color, fps=10):
     game.restart_game(color)
     while not game.game_end():
@@ -272,7 +272,7 @@ def game_loop_medium(player, color, fps=10):
 
     crash()
 
-# Hard difficulty - fastest snake
+
 def game_loop_hard(player, color, fps=10):
     game.restart_game(color)
     while not game.game_end():
@@ -290,7 +290,7 @@ def game_loop_hard(player, color, fps=10):
 
     crash()
 
-# returns the corresponding move detected by human input
+
 def human_move():
     direction = snake.facing
 
