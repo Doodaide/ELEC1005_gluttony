@@ -209,6 +209,7 @@ def game_loop_no_boundaries(player, color, fps=10): #CAN CROSS OVER WALLS
 def game_loop_easy(player, color, fps=10):
     game.restart_game()
     while not game.game_end():
+        game.snake.color = color
         screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
         pygame.event.pump()
         move = human_move()

@@ -20,27 +20,34 @@ class Snake:
         self.color = color
 
         if self.color.lower() == 'green':
-            filesource = 'images/green/'
+            filesource = '_g'
         if self.color.lower() == 'red':
-            filesource = 'images/red/'
+            filesource = '_r'
         if self.color.lower() == 'blue':
-            filesource = 'images/blue'
+            filesource = '_b'
         if self.color.lower() == 'yellow':
-            filesource = 'images/yellow'
+            filesource = '_y'
+        if self.color.lower() == 'purple':
+            filesource = '_lp'
+        if self.color.lower() == 'orange':
+            filesource = '_o'
+        if self.color.lower() == 'pink':
+            filesource = '_p'
+        
 
         #create subfolders in the images folder for each distinct snake colour
         
-        self.image_up = pygame.image.load(filesource + 'head_up.bmp')
-        self.image_down = pygame.image.load(filesource + 'head_down.bmp')
-        self.image_left = pygame.image.load(filesource + 'head_left.bmp')
-        self.image_right = pygame.image.load(filesource + 'head_right.bmp')
+        self.image_up = pygame.image.load('skin/head_up' + filesource + '.bmp')
+        self.image_down = pygame.image.load('skin/head_down' + filesource + '.bmp')
+        self.image_left = pygame.image.load('skin/head_left' + filesource + '.bmp')
+        self.image_right = pygame.image.load('skin/head_right' + filesource + '.bmp')
 
-        self.tail_up = pygame.image.load(filesource + 'tail_up.bmp')
-        self.tail_down = pygame.image.load(filesource + 'tail_down.bmp')
-        self.tail_left = pygame.image.load(filesource + 'tail_left.bmp')
-        self.tail_right = pygame.image.load(filesource + 'tail_right.bmp')
+        self.tail_up = pygame.image.load('skin/tail_up' + filesource + '.bmp')
+        self.tail_down = pygame.image.load('skin/tail_down' + filesource + '.bmp')
+        self.tail_left = pygame.image.load('skin/tail_left' + filesource + '.bmp')
+        self.tail_right = pygame.image.load('skin/tail_right' + filesource + '.bmp')
             
-        self.image_body = pygame.image.load(filesource + 'body.bmp')
+        self.image_body = pygame.image.load('skin/body' + filesource + '.bmp')
 
         self.facing = "right"
         self.initialize()
@@ -146,8 +153,7 @@ class Strawberry():
    
     def initialize(self):
         self.position = [15, 10]
-      
-        
+              
 class Game:
 
     def __init__(self):
@@ -238,37 +244,7 @@ class Game:
             return -1
                     
         return reward
-
-
-        # move_dict = self.move_dict
         
-        # change_direction = move_dict[move]
-        
-        # if change_direction == 'right' and not self.snake.facing == 'left':
-        #     self.snake.facing = change_direction
-        # if change_direction == 'left' and not self.snake.facing == 'right':
-        #     self.snake.facing = change_direction
-        # if change_direction == 'up' and not self.snake.facing == 'down':
-        #     self.snake.facing = change_direction
-        # if change_direction == 'down' and not self.snake.facing == 'up':
-        #     self.snake.facing = change_direction
-
-        # self.snake.update()
-        
-        # if self.snake.position == self.strawberry.position:
-        #     self.strawberry.random_pos(self.snake)
-        #     reward = 1
-        #     self.snake.score += 1
-        #     self.snake.segments.reverse()
-            
-        # else:
-        #     self.snake.segments.pop()
-        #     reward = 0
-                
-        # if self.game_end():
-        #     return -1
-                    
-        # return reward
     
     def game_end(self):
         end = False
