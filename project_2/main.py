@@ -130,6 +130,7 @@ def settings_interface(player, color):
         #Customise Game Modes
         button('Over and Under', 180, 200, 100, 40, green, green, game_loop_over_and_under, 'human', color)
         button('No Boundaries', 300, 200, 100, 40, green, green, game_loop_no_boundaries, 'human', color)
+        button('Progressive', 420, 200, 100, 40, green, green, game_loop_progressive, 'human', color)
 
         button('Easy', 180, 260, 100, 40, green, green, game_loop_easy, 'human', color)
         button('Medium', 300, 260, 100, 40, green, green, game_loop_medium, 'human', color)
@@ -172,9 +173,8 @@ def color_interface():
         pygame.time.Clock().tick(15)
 
 def game_loop_over_and_under(player, color, fps=10): #WONT DIE FROM HITTING SELF
-    game.restart_game()
+    game.restart_game(color)
     while not game.game_end_over_and_under():
-        game.snake.color = color
         screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
         pygame.event.pump()
         move = human_move()
@@ -190,7 +190,7 @@ def game_loop_over_and_under(player, color, fps=10): #WONT DIE FROM HITTING SELF
     crash()
 
 def game_loop_no_boundaries(player, color, fps=10): #CAN CROSS OVER WALLS
-    game.restart_game()
+    game.restart_game(color)
     while not game.game_end():
         screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
         pygame.event.pump()
@@ -206,10 +206,29 @@ def game_loop_no_boundaries(player, color, fps=10): #CAN CROSS OVER WALLS
 
     crash()
 
-def game_loop_easy(player, color, fps=10):
-    game.restart_game()
+def game_loop_progressive(player, color, fps=10):
+    game.restart_game(color)
+    i = 0
     while not game.game_end():
-        game.snake.color = color
+        screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
+        pygame.event.pump()
+        move = human_move()
+        fps = 10 + i
+        game.do_move_normal(move)
+        screen.fill(black)
+        game.snake.blit(rect_len, screen)
+        game.strawberry.blit(screen)
+        game.blit_score(white, screen)
+        pygame.display.flip()
+        fpsClock.tick(fps)
+        i += 0.02
+
+    crash()
+
+
+def game_loop_easy(player, color, fps=10):
+    game.restart_game(color)
+    while not game.game_end():
         screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
         pygame.event.pump()
         move = human_move()
@@ -225,7 +244,7 @@ def game_loop_easy(player, color, fps=10):
     crash()
 
 def game_loop_medium(player, color, fps=10):
-    game.restart_game()
+    game.restart_game(color)
     while not game.game_end():
         screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
         pygame.event.pump()
@@ -242,7 +261,7 @@ def game_loop_medium(player, color, fps=10):
     crash()
 
 def game_loop_hard(player, color, fps=10):
-    game.restart_game()
+    game.restart_game(color)
     while not game.game_end():
         screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
         pygame.event.pump()
