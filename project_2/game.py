@@ -188,7 +188,6 @@ class Game:
         self.snake.initialize()
         self.strawberry.initialize()
 
-
     def current_state(self):         
         state = np.zeros((self.settings.width+2, self.settings.height+2, 2))
         expand = [[0, 1], [0, -1], [-1, 0], [1, 0], [0, 2], [0, -2], [-2, 0], [2, 0]]

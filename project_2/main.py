@@ -3,6 +3,7 @@
 Created on Wed May 16 15:22:20 2018
 @author: zou
 """
+from turtle import screensize
 import pygame
 import time
 from pygame.locals import KEYDOWN, K_RIGHT, K_LEFT, K_UP, K_DOWN, K_ESCAPE
@@ -79,6 +80,7 @@ def crash():
     pygame.mixer.Sound.play(crash_sound)
     message_display('crashed', game.settings.width / 2 * 15, game.settings.height / 3 * 15, white)
     time.sleep(1)
+    initial_interface()
 
 snakebackground = {'green': pygame.image.load('images/snakeicongreen.png'),
                     'blue': pygame.image.load('images/snakeiconblue.png'),
@@ -201,8 +203,7 @@ def color_interface():
 
         pygame.display.update()
         pygame.time.Clock().tick(15)
-        
-        
+             
 # all the introductions        
 def help_interface(player, color):
     intro = True
@@ -283,7 +284,7 @@ def introduction_of_progressive(player, color):
 
         small_message_display('The speed of the snake will slowly increase as the game continues.', 350, game.settings.height * 6,
                               white)
-        small_message_display('While the beginning may seem easy, watch for the end', 350,
+        small_message_display('While the beginning may seem easy, it gets harder later on', 350,
                               game.settings.height * 8, white)
 
         button("Exit", 620, 380, 80, 40, red, bright_red, help_interface, 'human', 'green')
@@ -291,7 +292,6 @@ def introduction_of_progressive(player, color):
 
         pygame.display.update()
         pygame.time.Clock().tick(20)
-
 
 def introduction_of_easy(player, color):
     intro = True
@@ -409,7 +409,7 @@ def game_loop_progressive(player, color, fps=10):
     while not gamee.game_end():
         pygame.event.pump()
         move = human_move()
-        fps = 10 + i
+        fps = 5 + i
         gamee.do_move_normal(move)
         screen.fill(black)
         gamee.snake.blit(rect_len, screen)
@@ -417,7 +417,7 @@ def game_loop_progressive(player, color, fps=10):
         gamee.blit_score(white, screen)
         pygame.display.flip()
         fpsClock.tick(fps)
-        i += 0.02
+        i += 0.01
 
     crash()
 
