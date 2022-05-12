@@ -58,14 +58,14 @@ def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
     if x + w > mouse[0] > x and y + h > mouse[1] > y:
-        pygame.draw.rect(screen, active_color, (x, y, w, h))
+        pygame.draw.rect(screen, active_color, (x, y, w, h), border_radius=8)
         if click[0] == 1 and action != None:
             if parameter != None:
                 action(parameter, parameter2)
             else:
                 action()
     else:
-        pygame.draw.rect(screen, inactive_color, (x, y, w, h))
+        pygame.draw.rect(screen, inactive_color, (x, y, w, h), border_radius=8)
 
     smallText = pygame.font.SysFont('comicsansms', 20)
     TextSurf, TextRect = text_objects(msg, smallText)
