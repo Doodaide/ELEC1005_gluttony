@@ -22,6 +22,7 @@ class Snake:
         
         # Attribute of snake object: colour 
         self.color = color
+        self.settings = Settings()
 
         # This section controls the snake's customizable colouring 
         if self.color.lower() == 'green':
@@ -114,25 +115,25 @@ class Snake:
     # Giving it the illusion that it passed through the side 
     def update_no_boundaries(self):
         if self.facing == 'right':
-            if self.position[0] == 27:
+            if self.position[0] == self.settings.width - 1:
                 self.position[0] = 0
             else:
                 self.position[0] += 1
         
         if self.facing == 'left':
             if self.position[0] == 0:
-                self.position[0] = 27
+                self.position[0] = self.settings.width - 1
             else:
                 self.position[0] -= 1
 
         if self.facing == 'up':
             if self.position[1] == 0:
-                self.position[1] = 27
+                self.position[1] = self.settings.width - 1
             else:
                 self.position[1] -= 1
 
         if self.facing == 'down':
-            if self.position[1] == 27:
+            if self.position[1] == self.settings.width - 1:
                 self.position[1] = 0
             else:
                 self.position[1] += 1
@@ -187,8 +188,6 @@ class Game:
         self.snake.initialize()
         self.strawberry.initialize()
 
-    def change_snake(self, color):
-        self.snake.color = color
 
     def current_state(self):         
         state = np.zeros((self.settings.width+2, self.settings.height+2, 2))
@@ -253,6 +252,7 @@ class Game:
         if change_direction == 'down' and not self.snake.facing == 'up':
             self.snake.facing = change_direction
 
+        #New line
         self.snake.update_no_boundaries()
         
         if self.snake.position == self.strawberry.position:

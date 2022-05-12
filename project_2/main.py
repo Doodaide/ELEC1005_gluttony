@@ -39,7 +39,7 @@ def text_objects(text, font, color=black):
 
 # Displays a text message in comic sans size 50 (large text)
 # centres text (probably)
-def message_display(text, x, y, color=black):
+def message_display(text, x, y, color=white):
     large_text = pygame.font.SysFont('comicsansms', 50)
     text_surf, text_rect = text_objects(text, large_text, color)
     text_rect.center = (x, y)
@@ -118,8 +118,7 @@ def settings_interface(player, color):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-        
-        
+
         screen.fill(black)
 
         #Snake icon to change colour
