@@ -97,6 +97,8 @@ def initial_interface():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+        
+        question = pygame.image.load('images/help.png')
 
         screen.fill(black)
         screen.blit(snakebackground['green'], (game.settings.width * 5, game.settings.height / 3))
@@ -108,7 +110,11 @@ def initial_interface():
 
         #settings interface link
         button('Settings', 310, 300, 80, 40, yellow, bright_yellow, settings_interface,'human', 'green')
-        button('Help', 0,0,80,40, green, green, help_interface, 'human', 'green')
+        
+        button('', 0,0,80,40, black, black, help_interface, 'human', 'green')
+        small_message_display('Help', 25, 20, white)
+        questionn = pygame.transform.scale(question, (20,20))
+        screen.blit(questionn, (45,10))
 
         pygame.display.update()
         pygame.time.Clock().tick(15)
