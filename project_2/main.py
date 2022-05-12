@@ -108,6 +108,7 @@ def initial_interface():
 
         #settings interface link
         button('Settings', 310, 300, 80, 40, yellow, bright_yellow, settings_interface,'human', 'green')
+        button('Help', 0,0,80,40, green, green, help_interface, 'human', 'green')
 
         pygame.display.update()
         pygame.time.Clock().tick(15)
@@ -204,7 +205,6 @@ def help_interface(player, color):
             if event.type == pygame.QUIT:
                 pygame.quit()
 
-        pygame.display.set_mode((game.settings.width * 25, game.settings.height * 15)).fill(white)
         screen.fill(black)
         message_display('introduction of the game', 350, game.settings.height * 2, white)
         small_message_display('Welcome to Gluttony!', 350, game.settings.height * 3, white)
@@ -215,13 +215,13 @@ def help_interface(player, color):
         small_message_display('But beware, hitting yourself will leave devastating effects', 350,
                               game.settings.height * 6, white)
 
-        button('Over and Under', 240, 200, 100, 40, green, green, introduction_of_over_and_under, 'human', color)
-        button('No Boundaries', 360, 200, 100, 40, green, green, introduction_of_no_boundaries, 'human', color)
-
+        button('Over and Under', 180, 200, 100, 40, green, green, introduction_of_over_and_under, 'human', color)
+        button('No Boundaries', 300, 200, 100, 40, green, green, introduction_of_no_boundaries, 'human', color)
+        button('Progressive', 420, 200, 100, 40, green, green, introduction_of_progressive, 'human', color)
 
         button('Easy', 180, 260, 100, 40, green, green, introduction_of_easy, 'human', color)
         button('Medium', 300, 260, 100, 40, green, green, introduction_of_medium, 'human', color)
-        button('Hard', 420, 260, 100, 40, green, green, introduction_of_hard , 'human', color)
+        button('Hard', 420, 260, 100, 40, green, green, introduction_of_hard, 'human', color)
 
         button('Exit', 300, 340, 100, 30, red, red, initial_interface)
 
@@ -234,7 +234,6 @@ def introduction_of_over_and_under(player, color):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-        pygame.display.set_mode((game.settings.width * 25, game.settings.height * 15)).fill(white)
         screen.fill(black)
         message_display('introduction of Over and Under', 350, game.settings.height * 2, white)
 
@@ -253,7 +252,6 @@ def introduction_of_no_boundaries(player, color):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-        pygame.display.set_mode((game.settings.width * 25, game.settings.height * 15)).fill(white)
         screen.fill(black)
         message_display('introduction of No boundaries', 350, game.settings.height * 2, white)
 
@@ -268,13 +266,33 @@ def introduction_of_no_boundaries(player, color):
         pygame.display.update()
         pygame.time.Clock().tick(20)
 
+def introduction_of_progressive(player, color):
+    intro = True
+    while intro:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+        screen.fill(black)
+        message_display('introduction of Progressive', 350, game.settings.height * 2, white)
+
+        small_message_display('The speed of the snake will slowly increase as the game continues.', 350, game.settings.height * 6,
+                              white)
+        small_message_display('While the beginning may seem easy, watch for the end', 350,
+                              game.settings.height * 8, white)
+
+        button("Exit", 620, 380, 80, 40, red, bright_red, help_interface, 'human', 'green')
+        button('Go', 300, 340, 100, 30, green, bright_green, game_loop_progressive, 'human', color)
+
+        pygame.display.update()
+        pygame.time.Clock().tick(20)
+
+
 def introduction_of_easy(player, color):
     intro = True
     while intro:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-        pygame.display.set_mode((game.settings.width * 25, game.settings.height * 15)).fill(white)
         screen.fill(black)
         message_display('introduction of Easy', 350, game.settings.height * 2, white)
         small_message_display('For a nice, slow introduction to the game', 350, game.settings.height * 8, white)
@@ -293,7 +311,6 @@ def introduction_of_medium(player, color):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-        pygame.display.set_mode((game.settings.width * 25, game.settings.height * 15)).fill(white)
         screen.fill(black)
         message_display('introduction of Medium', 350, game.settings.height * 2, white)
 
@@ -312,7 +329,6 @@ def introduction_of_hard(player, color):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-        pygame.display.set_mode((game.settings.width * 25, game.settings.height * 15)).fill(white)
         screen.fill(black)
         message_display('introduction of Hard', 350, game.settings.height * 2, white)
 
