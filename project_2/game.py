@@ -24,22 +24,16 @@ class Snake:
         self.color = color
         self.settings = Settings()
 
+        file_dictionary = {'green': '_g',
+                            'red': '_r',
+                            'blue': '_b',
+                            'yellow': '_y',
+                            'purple': '_lp',
+                            'orange': '_o',
+                            'pink': '_p'}
+
         # This section controls the snake's customizable colouring 
-        if self.color.lower() == 'green':
-            filesource = '_g'
-        if self.color.lower() == 'red':
-            filesource = '_r'
-        if self.color.lower() == 'blue':
-            filesource = '_b'
-        if self.color.lower() == 'yellow':
-            filesource = '_y'
-        if self.color.lower() == 'purple':
-            filesource = '_lp'
-        if self.color.lower() == 'orange':
-            filesource = '_o'
-        if self.color.lower() == 'pink':
-            filesource = '_p'
-        
+        filesource = file_dictionary[self.color.lower()]
 
         #create subfolders in the images folder for each distinct snake colour
         self.image_up = pygame.image.load('skin/head_up' + filesource + '.bmp')
