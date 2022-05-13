@@ -12,7 +12,7 @@ import numpy as np
 class Settings:
     def __init__(self):
         # 屏幕属性
-        self.width = 28
+        self.width = 35
         self.height = 28
         self.rect_len = 15
 
@@ -65,6 +65,9 @@ class Snake:
         self.segments = [[6 - i, 6] for i in range(3)]
         self.score = 0
    
+    def getsize(self):
+        return len(self.segments)
+
     # Visualises the snake on the map 
     def blit_body(self, x, y, screen):
         screen.blit(self.image_body, (x, y))
@@ -128,12 +131,12 @@ class Snake:
 
         if self.facing == 'up':
             if self.position[1] == 0:
-                self.position[1] = self.settings.width - 1
+                self.position[1] = self.settings.height - 1
             else:
                 self.position[1] -= 1
 
         if self.facing == 'down':
-            if self.position[1] == self.settings.width - 1:
+            if self.position[1] == self.settings.height - 1:
                 self.position[1] = 0
             else:
                 self.position[1] += 1
@@ -157,8 +160,8 @@ class Strawberry():
         self.position[0] = random.randint(0, self.settings.width-1)
         self.position[1] = random.randint(0, self.settings.height-1)
 
-        self.position[0] = random.randint(9, 19)
-        self.position[1] = random.randint(9, 19)
+        # self.position[0] = random.randint(0, 46)
+        # self.position[1] = random.randint(0, 28)
         
         #reposition the food item if it is repositioned inside the snake
         if self.position in snake.segments:
@@ -295,4 +298,6 @@ class Game:
         font = pygame.font.SysFont(None, 25)
         text = font.render('Score: ' + str(self.snake.score), True, color)
         screen.blit(text, (0, 0))
+
+
 
