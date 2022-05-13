@@ -164,6 +164,8 @@ def settings_interface(player, color):
         button('Hard', widthvar + 70, 260, 100, 40, green, green, game_loop_hard, 'human', color)
 
         button('Exit', widthvar - 50, 340, 100, 30, red, red, initial_interface)
+        button('leaderboard', 320, 340, 100, 30, red, red, leaderboard_ui)
+
 
         pygame.display.update()
         pygame.time.Clock().tick(20)
@@ -229,12 +231,37 @@ def leaderboard_ui():
                 pygame.quit()
         
         screen.fill(black)
-        message_display('|| Highscores 𓆙 ||', game.settings.width * 7.5, game.settings.height / 3, white)
+        message_display('Highscores', game.settings.width * 7.5, game.settings.height * 2, white)
+
+        head = pygame.image.load('skin/head_left_g.bmp')
+        tail = pygame.image.load('skin/tail_left_g.bmp')
+        body = pygame.image.load('skin/body_g.bmp')
+
+        widthvar = game.settings.width * 7.5
+
+        button('Exit', 100, 340, 100, 30, red, red, initial_interface)
+
+        snakehead = pygame.transform.scale(head, (20,20))
+        snaketail = pygame.transform.scale(tail, (20,20))
+        snakebody = pygame.transform.scale(body, (20,20))
+
+        for i in range(0, len(leaderboard)):
+
+            small_message_display(str(str(i+1) + ": "), widthvar - 220, game.settings.height * 4 + i*30 + 10)
+            screen.blit(snakehead, (widthvar - 200, game.settings.height * 4 + i*30))
+            
+            for j in range(0, leaderboard[i] // 5):
+                if j > 30:
+                    break
+                screen.blit(snakebody, (widthvar - 180 + 20*j, game.settings.height * 4 + i*30))
+
+            screen.blit(snaketail, (widthvar - 180 + (20*(leaderboard[i] // 5)), game.settings.height * 4 + i*30))
+
+        pygame.display.update()
+        pygame.time.Clock().tick(20)
 
         
-
-
-
+        
 
 # all the introductions        
 def help_interface(player, color):
