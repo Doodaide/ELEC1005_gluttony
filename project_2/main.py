@@ -288,6 +288,7 @@ def leaderboard_ui():
 
             #Tail
             screen.blit(snaketail, (widthvar - 110 + (20*(leaderboard[i][0] // 5)), game.settings.height * 4 + i*40))
+            small_message_display(str(leaderboard[i][0]), widthvar - 85 + (20*(leaderboard[i][0] // 5)), game.settings.height * 4 + i*40 + 10)
 
         pygame.display.update()
         pygame.time.Clock().tick(20)
