@@ -133,6 +133,11 @@ def initial_interface():
         
         message_display('Snake Game', game.settings.width * 7.5, game.settings.height * 6, white, 50)
 
+        smalltrophy = pygame.image.load('images/trophy.png')
+        trophy = pygame.transform.scale(smalltrophy, (35,35))
+        button('', game.settings.width * 7.5 - 17.5, 200, 40,40, black, black, leaderboard_ui)
+        screen.blit(trophy, (game.settings.width * 7.5 - 17.5, 200))
+
         button('Go!', game.settings.width * 7.5 - 120, 240, 80, 40, green, bright_green, game_loop_easy, 'human', 'green')
         button('Quit', game.settings.width * 7.5 + 40, 240, 80, 40, red, bright_red, quitgame)
 
@@ -176,8 +181,6 @@ def settings_interface(player, color):
         button('Hard', widthvar + 70, 260, 100, 40, green, green, game_loop_hard, 'human', color)
 
         button('Exit', widthvar - 50, 340, 100, 30, red, red, initial_interface)
-        button('leaderboard', 320, 340, 100, 30, red, red, leaderboard_ui)
-
 
         pygame.display.update()
         pygame.time.Clock().tick(20)
@@ -258,7 +261,7 @@ def leaderboard_ui():
         widthvar = game.settings.width * 7.5
 
         for i in range(0, len(leaderboard)):
-            if i > 5:
+            if i >= 5:
                 break
 
             #Retrieve the colouring of the recently played snake
