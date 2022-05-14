@@ -67,7 +67,6 @@ def small_message_display(text, x, y, color=white, size = 20):
     screen.blit(text_surf, text_rect)
     pygame.display.update()
 
-# Added a text size parameter for button function. Ensures the whole message fits
 def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter=None, parameter2=None, parameter3=None, text_size = 20):
 
     mouse = pygame.mouse.get_pos()
@@ -133,11 +132,6 @@ def initial_interface():
         
         message_display('Snake Game', game.settings.width * 7.5, game.settings.height * 6, white, 50)
 
-        smalltrophy = pygame.image.load('images/trophy.png')
-        trophy = pygame.transform.scale(smalltrophy, (35,35))
-        button('', game.settings.width * 7.5 - 17.5, 200, 40,40, black, black, leaderboard_ui)
-        screen.blit(trophy, (game.settings.width * 7.5 - 17.5, 200))
-
         button('Go!', game.settings.width * 7.5 - 120, 240, 80, 40, green, bright_green, game_loop_easy, 'human', 'green')
         button('Quit', game.settings.width * 7.5 + 40, 240, 80, 40, red, bright_red, quitgame)
 
@@ -167,20 +161,22 @@ def settings_interface(player, color):
 
 
         message_display('Customise game', game.settings.width * 7.5, game.settings.height * 6, white, 50)
-        small_message_display('*click me*', 67, 80, white)
+        small_message_display('*click me*', 67, 76, white)
         
         widthvar = game.settings.width * 7.5
 
         #Customise Game Modes
-        button('Over and Under', widthvar - 170, 200, 100, 40, green, green, game_loop_over_and_under, 'human', color,'Over and Under', 13)
-        button('No Boundaries', widthvar - 50, 200, 100, 40, green, green, game_loop_no_boundaries, 'human', color, 'No Boundaries',13)
-        button('Progressive', widthvar + 70, 200, 100, 40, green, green, game_loop_progressive, 'human', color, 'Progressive', 13)
+        button('Over and Under', widthvar - 170, 200, 100, 40, green, green, game_loop_over_and_under, 'human', color)
+        button('No Boundaries', widthvar - 50, 200, 100, 40, green, green, game_loop_no_boundaries, 'human', color)
+        button('Progressive', widthvar + 70, 200, 100, 40, green, green, game_loop_progressive, 'human', color)
 
         button('Easy', widthvar - 170, 260, 100, 40, green, green, game_loop_easy, 'human', color)
         button('Medium', widthvar - 50, 260, 100, 40, green, green, game_loop_medium, 'human', color)
         button('Hard', widthvar + 70, 260, 100, 40, green, green, game_loop_hard, 'human', color)
 
         button('Exit', widthvar - 50, 340, 100, 30, red, red, initial_interface)
+        button('leaderboard', 320, 340, 100, 30, red, red, leaderboard_ui)
+
 
         pygame.display.update()
         pygame.time.Clock().tick(20)
@@ -261,7 +257,7 @@ def leaderboard_ui():
         widthvar = game.settings.width * 7.5
 
         for i in range(0, len(leaderboard)):
-            if i >= 5:
+            if i > 5:
                 break
 
             #Retrieve the colouring of the recently played snake
@@ -291,7 +287,6 @@ def leaderboard_ui():
 
             #Tail
             screen.blit(snaketail, (widthvar - 110 + (20*(leaderboard[i][0] // 5)), game.settings.height * 4 + i*40))
-            small_message_display(str(leaderboard[i][0]), widthvar - 85 + (20*(leaderboard[i][0] // 5)), game.settings.height * 4 + i*40 + 10)
 
         pygame.display.update()
         pygame.time.Clock().tick(20)
@@ -500,9 +495,9 @@ def help_interface(player, color):
                               game.settings.height * 7, white)
         
 
-        button('Over and Under', widthvar - 170, 220, 100, 40, green, green, introductions, 'human', color, 'Over and Under', 13)
-        button('No Boundaries', widthvar - 50, 220, 100, 40, green, green, introductions, 'human', color, 'No Boundaries', 13)
-        button('Progressive', widthvar + 70, 220, 100, 40, green, green, introductions, 'human', color, 'Progressive', 13)
+        button('Passin thru', widthvar - 170, 220, 100, 40, green, green, introductions, 'human', color, 'Over and Under')
+        button('No Boundaries', widthvar - 50, 220, 100, 40, green, green, introductions, 'human', color, 'No Boundaries')
+        button('Progressive', widthvar + 70, 220, 100, 40, green, green, introductions, 'human', color, 'Progressive')
 
         button('Easy', widthvar - 170, 280, 100, 40, green, green, introductions, 'human', color, 'Easy')
         button('Medium', widthvar - 50, 280, 100, 40, green, green, introductions, 'human', color, 'Medium')
@@ -534,7 +529,7 @@ def introductions(player, color, gamemode):
             if event.type == pygame.QUIT:
                 pygame.quit()
         screen.fill(black)
-        message_display("Introduction to " + gamemode, game.settings.width * 7.5, game.settings.height * 2, white, 35)
+        message_display("Introduction to " + gamemode, game.settings.width * 7.5, game.settings.height * 2, white, 40)
 
         small_message_display(message_dictionary[gamemode][0], game.settings.width * 7.5, game.settings.height * 6, white)
         small_message_display(message_dictionary[gamemode][1], game.settings.width * 7.5, game.settings.height * 8, white)
