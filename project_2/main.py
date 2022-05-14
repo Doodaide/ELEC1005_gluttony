@@ -272,20 +272,19 @@ def leaderboard_ui():
                 screen.blit(pygame.transform.scale(medals[i], (20,25)), (widthvar - 160, game.settings.height * 4 + i*40))
             else:
                 small_message_display(str(str(i+1) + "th "), widthvar - 150, game.settings.height * 4 + i*40 + 10)
-            
+
             #Snake icon = head + body * score * value + tail
-            
             #head
-            screen.blit(snakehead, (widthvar - 140, game.settings.height * 4 + i*40))
+            screen.blit(snakehead, (widthvar - 130, game.settings.height * 4 + i*40))
 
             #1 body icon for every 5 points
             for j in range(0, leaderboard[i][0] // 5):
                 if j > 16:
                     break
-                screen.blit(snakebody, (widthvar - 120 + 20*j, game.settings.height * 4 + i*40))
+                screen.blit(snakebody, (widthvar - 110 + 20*j, game.settings.height * 4 + i*40))
 
             #Tail
-            screen.blit(snaketail, (widthvar - 120 + (20*(leaderboard[i][0] // 5)), game.settings.height * 4 + i*40))
+            screen.blit(snaketail, (widthvar - 110 + (20*(leaderboard[i][0] // 5)), game.settings.height * 4 + i*40))
 
         pygame.display.update()
         pygame.time.Clock().tick(20)
