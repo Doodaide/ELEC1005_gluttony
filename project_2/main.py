@@ -44,7 +44,6 @@ file_dictionary = {'green': '_g',
                     'orange': '_o',
                     'pink': '_p'}
 
-
 # Renders text 
 def text_objects(text, font, color=black):
     text_surface = font.render(text, True, color)
@@ -104,7 +103,6 @@ def crash(score, color):
     leaderboard.reverse()
     print(leaderboard)
 
-    initial_interface()
 
 snakebackground = {'green': pygame.image.load('images/snakeicongreen.png'),
                     'blue': pygame.image.load('images/snakeiconblue.png'),
@@ -114,6 +112,7 @@ snakebackground = {'green': pygame.image.load('images/snakeicongreen.png'),
                     'yellow': pygame.image.load('images/snakeiconyellow.png'),
                     'pink': pygame.image.load('images/snakeiconpink.png')}
 
+medals = [pygame.image.load('images/goldmedal.bmp'), pygame.image.load('images/silvermedal.bmp'), pygame.image.load('images/bronzemedal.bmp')]
 
 # Sets up the initial interface with the customization buttons, skin selection, etc. 
 def initial_interface():
@@ -243,7 +242,7 @@ def leaderboard_ui():
         #initialise static screen
         screen.fill(black)
         message_display('Highscores', game.settings.width * 7.5, game.settings.height * 2, white)
-        button('Exit', 100, 340, 100, 30, red, red, initial_interface)
+        button('Exit', game.settings.width * 7.5 - 50, 340, 100, 30, red, red, initial_interface)
 
         #state variables
         head = pygame.image.load('skin/head_left_g.bmp')
@@ -268,21 +267,25 @@ def leaderboard_ui():
             snakebody = pygame.transform.scale(body, (20,20))
 
             #Display ranking
-            small_message_display(str(str(i+1) + ": "), widthvar - 160, game.settings.height * 4 + i*30 + 10)
+            if i <= 2:
+                #Medal icon for top 3
+                screen.blit(pygame.transform.scale(medals[i], (20,25)), (widthvar - 160, game.settings.height * 4 + i*40))
+            else:
+                small_message_display(str(str(i+1) + "th "), widthvar - 150, game.settings.height * 4 + i*40 + 10)
             
             #Snake icon = head + body * score * value + tail
             
             #head
-            screen.blit(snakehead, (widthvar - 140, game.settings.height * 4 + i*30))
+            screen.blit(snakehead, (widthvar - 140, game.settings.height * 4 + i*40))
 
             #1 body icon for every 5 points
             for j in range(0, leaderboard[i][0] // 5):
                 if j > 16:
                     break
-                screen.blit(snakebody, (widthvar - 120 + 20*j, game.settings.height * 4 + i*30))
+                screen.blit(snakebody, (widthvar - 120 + 20*j, game.settings.height * 4 + i*40))
 
             #Tail
-            screen.blit(snaketail, (widthvar - 120 + (20*(leaderboard[i][0] // 5)), game.settings.height * 4 + i*30))
+            screen.blit(snaketail, (widthvar - 120 + (20*(leaderboard[i][0] // 5)), game.settings.height * 4 + i*40))
 
         pygame.display.update()
         pygame.time.Clock().tick(20)
@@ -509,7 +512,7 @@ message_dictionary = {'Over and Under': ["If you hit yourself, you will pass ove
                     'Medium': ["For the experienced players looking for a moderately paced game", None],
                     'Hard': ["Only for seasoned experts", None]}
 
-#Python doesn't like referencing functions above their decleration, so introductions must be defined at the bottom
+#Python doesn't like declaring functions below their reference(s), so introductions must be defined at the bottom
 game_loop_dictionary = {'Over and Under': game_loop_over_and_under, 
                     'No Boundaries': game_loop_no_boundaries,
                     'Progressive': game_loop_progressive,
