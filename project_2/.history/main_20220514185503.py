@@ -176,7 +176,7 @@ def settings_interface(player, color):
         button('Hard', widthvar + 70, 260, 100, 40, green, green, game_loop_hard, 'human', color)
 
         button('Exit', widthvar - 50, 340, 100, 30, red, red, initial_interface)
-        button('leaderboard', 320, 340, 100, 30, red, red, leaderboard_ui)
+        button('leaderboard', 320, 340, 100, 30, red, red, leaderboard_ui,None, 'leaderboard', 12)
 
 
         pygame.display.update()

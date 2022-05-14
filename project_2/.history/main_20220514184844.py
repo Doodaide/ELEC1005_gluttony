@@ -162,14 +162,14 @@ def settings_interface(player, color):
 
 
         message_display('Customise game', game.settings.width * 7.5, game.settings.height * 6, white, 50)
-        small_message_display('*click me*', 67, 80, white)
+        small_message_display('*click me*', 67, 76, white)
         
         widthvar = game.settings.width * 7.5
 
         #Customise Game Modes
-        button('Over and Under', widthvar - 170, 200, 100, 40, green, green, game_loop_over_and_under, 'human', color,'Over and Under', 13)
-        button('No Boundaries', widthvar - 50, 200, 100, 40, green, green, game_loop_no_boundaries, 'human', color, 'No Boundaries',13)
-        button('Progressive', widthvar + 70, 200, 100, 40, green, green, game_loop_progressive, 'human', color, 'Progressive', 13)
+        button('Over and Under', widthvar - 170, 200, 100, 40, green, green, game_loop_over_and_under, 'human', color, 13)
+        button('No Boundaries', widthvar - 50, 200, 100, 40, green, green, game_loop_no_boundaries, 'human', color, 13)
+        button('Progressive', widthvar + 70, 200, 100, 40, green, green, game_loop_progressive, 'human', color, 13)
 
         button('Easy', widthvar - 170, 260, 100, 40, green, green, game_loop_easy, 'human', color)
         button('Medium', widthvar - 50, 260, 100, 40, green, green, game_loop_medium, 'human', color)

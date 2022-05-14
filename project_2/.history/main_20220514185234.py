@@ -167,16 +167,17 @@ def settings_interface(player, color):
         widthvar = game.settings.width * 7.5
 
         #Customise Game Modes
-        button('Over and Under', widthvar - 170, 200, 100, 40, green, green, game_loop_over_and_under, 'human', color,'Over and Under', 13)
-        button('No Boundaries', widthvar - 50, 200, 100, 40, green, green, game_loop_no_boundaries, 'human', color, 'No Boundaries',13)
-        button('Progressive', widthvar + 70, 200, 100, 40, green, green, game_loop_progressive, 'human', color, 'Progressive', 13)
+        button('Over and Under', widthvar - 170, 200, 100, 40, green, green, game_loop_over_and_under, 'human', color, 10)
+        button('Over and Under', widthvar - 170, 220, 100, 40, green, green, introductions, 'human', color, 'Over and Under', 13)
+        button('No Boundaries', widthvar - 50, 200, 100, 40, green, green, game_loop_no_boundaries, 'human', color, 10)
+        button('Progressive', widthvar + 70, 200, 100, 40, green, green, game_loop_progressive, 'human', color, 10)
 
         button('Easy', widthvar - 170, 260, 100, 40, green, green, game_loop_easy, 'human', color)
         button('Medium', widthvar - 50, 260, 100, 40, green, green, game_loop_medium, 'human', color)
         button('Hard', widthvar + 70, 260, 100, 40, green, green, game_loop_hard, 'human', color)
 
         button('Exit', widthvar - 50, 340, 100, 30, red, red, initial_interface)
-        button('leaderboard', 320, 340, 100, 30, red, red, leaderboard_ui)
+        button('leaderboard', 320, 340, 100, 30, red, red, leaderboard_ui, 12)
 
 
         pygame.display.update()

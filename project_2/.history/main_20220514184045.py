@@ -3,7 +3,6 @@
 Created on Wed May 16 15:22:20 2018
 @author: zou
 """
-from cgitb import text
 from email import message
 #from turtle import screensize #Pretty sure this causes problems as I need tkinter for it to work
 import pygame
@@ -67,8 +66,7 @@ def small_message_display(text, x, y, color=white, size = 20):
     screen.blit(text_surf, text_rect)
     pygame.display.update()
 
-# Added a text size parameter for button function. Ensures the whole message fits
-def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter=None, parameter2=None, parameter3=None, text_size = 20):
+def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter=None, parameter2=None, parameter3=None):
 
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -85,7 +83,7 @@ def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter
     else:
         pygame.draw.rect(screen, inactive_color, (x, y, w, h), border_radius=8)
 
-    smallText = pygame.font.SysFont('comicsansms', text_size)
+    smallText = pygame.font.SysFont('comicsansms', 20)
     TextSurf, TextRect = text_objects(msg, smallText)
     TextRect.center = (x + (w / 2), y + (h / 2))
     screen.blit(TextSurf, TextRect)
@@ -162,14 +160,14 @@ def settings_interface(player, color):
 
 
         message_display('Customise game', game.settings.width * 7.5, game.settings.height * 6, white, 50)
-        small_message_display('*click me*', 67, 80, white)
+        small_message_display('*click me*', 67, 76, white)
         
         widthvar = game.settings.width * 7.5
 
         #Customise Game Modes
-        button('Over and Under', widthvar - 170, 200, 100, 40, green, green, game_loop_over_and_under, 'human', color,'Over and Under', 13)
-        button('No Boundaries', widthvar - 50, 200, 100, 40, green, green, game_loop_no_boundaries, 'human', color, 'No Boundaries',13)
-        button('Progressive', widthvar + 70, 200, 100, 40, green, green, game_loop_progressive, 'human', color, 'Progressive', 13)
+        button('Over and Under', widthvar - 170, 200, 100, 40, green, green, game_loop_over_and_under, 'human', color)
+        button('No Boundaries', widthvar - 50, 200, 100, 40, green, green, game_loop_no_boundaries, 'human', color)
+        button('Progressive', widthvar + 70, 200, 100, 40, green, green, game_loop_progressive, 'human', color)
 
         button('Easy', widthvar - 170, 260, 100, 40, green, green, game_loop_easy, 'human', color)
         button('Medium', widthvar - 50, 260, 100, 40, green, green, game_loop_medium, 'human', color)
@@ -496,9 +494,9 @@ def help_interface(player, color):
                               game.settings.height * 7, white)
         
 
-        button('Over and Under', widthvar - 170, 220, 100, 40, green, green, introductions, 'human', color, 'Over and Under', 13)
-        button('No Boundaries', widthvar - 50, 220, 100, 40, green, green, introductions, 'human', color, 'No Boundaries', 13)
-        button('Progressive', widthvar + 70, 220, 100, 40, green, green, introductions, 'human', color, 'Progressive', 13)
+        button('', widthvar - 170, 220, 100, 40, green, green, introductions, 'human', color, 'Over and Under')
+        button('No Boundaries', widthvar - 50, 220, 100, 40, green, green, introductions, 'human', color, 'No Boundaries')
+        button('Progressive', widthvar + 70, 220, 100, 40, green, green, introductions, 'human', color, 'Progressive')
 
         button('Easy', widthvar - 170, 280, 100, 40, green, green, introductions, 'human', color, 'Easy')
         button('Medium', widthvar - 50, 280, 100, 40, green, green, introductions, 'human', color, 'Medium')
@@ -530,7 +528,7 @@ def introductions(player, color, gamemode):
             if event.type == pygame.QUIT:
                 pygame.quit()
         screen.fill(black)
-        message_display("Introduction to " + gamemode, game.settings.width * 7.5, game.settings.height * 2, white, 35)
+        message_display("Introduction to " + gamemode, game.settings.width * 7.5, game.settings.height * 2, white, 40)
 
         small_message_display(message_dictionary[gamemode][0], game.settings.width * 7.5, game.settings.height * 6, white)
         small_message_display(message_dictionary[gamemode][1], game.settings.width * 7.5, game.settings.height * 8, white)
