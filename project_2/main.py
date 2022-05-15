@@ -43,18 +43,6 @@ progress_bar_value = 0
 progress_bar_intervals = [0, 50, 100, 200, 400, 800, 1000]
 level_intervals = {0: 'Level 1', 50: 'Level 2', 100: 'Level 3', 200: 'Level 4', 400: 'Level 5', 800: 'Level 6', 1000: ''}
 
-if progress_bar_value < 1000:
-    left_progress = next(x for x, val in enumerate(progress_bar_intervals) if val > progress_bar_value)
-    left_progress_value = progress_bar_intervals[left_progress - 1]
-    right_progress_value = progress_bar_intervals[left_progress]
-else:
-    progress_bar_value = 1000
-    left_progress_value = 800
-    right_progress_value = 1000
-
-fractional_progress = int( ((right_progress_value - progress_bar_value) / (right_progress_value - left_progress_value)) * 240 )
-
-
 
 file_dictionary = {'green': '_g',
                     'red': '_r',
@@ -150,6 +138,16 @@ def initial_interface():
     while intro:
 
         global progress_bar_value
+
+        if progress_bar_value < 1000:
+            left_progress = next(x for x, val in enumerate(progress_bar_intervals) if val > progress_bar_value)
+            left_progress_value = progress_bar_intervals[left_progress - 1]
+            right_progress_value = progress_bar_intervals[left_progress]
+        else:
+            progress_bar_value = 1000
+            left_progress_value = 800
+            right_progress_value = 1000
+            
         fractional_progress = int( ((right_progress_value - progress_bar_value) / (right_progress_value - left_progress_value)) * 240 )
 
 
