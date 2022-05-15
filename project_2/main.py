@@ -287,9 +287,18 @@ def leaderboard_ui():
 
             #1 body icon for every 5 points
             for j in range(0, leaderboard[i][0] // 5):
-                if j > 16:
-                    break
-                screen.blit(snakebody, (widthvar - 110 + 20*j, game.settings.height * 4 + i*40))
+                #max depth for leaderboard
+                if j == 12 and j != leaderboard[i][0] // 5:
+                    screen.blit(snaketail, (widthvar + 200, game.settings.height * 4 + i*40))
+                    small_message_display(str(leaderboard[i][0]), widthvar + 200, game.settings.height * 4 + i*40 + 10)
+         
+                elif j < 12 and j == leaderboard[i][0] // 5:
+                    screen.blit(snaketail, (widthvar - 110 + 20*j, game.settings.height * 4 + i*40))
+                    small_message_display(str(leaderboard[i][0]), widthvar + - 80 + 20*j, game.settings.height * 4 + i*40 + 10)
+
+                
+                elif j < 12:
+                    screen.blit(snakebody, (widthvar - 110 + 20*j, game.settings.height * 4 + i*40))
 
             #Tail
             screen.blit(snaketail, (widthvar - 110 + (20*(leaderboard[i][0] // 5)), game.settings.height * 4 + i*40))
