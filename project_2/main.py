@@ -115,7 +115,9 @@ snakebackground = {'green': pygame.image.load('images/snakeicongreen.png'),
                     'yellow': pygame.image.load('images/snakeiconyellow.png'),
                     'pink': pygame.image.load('images/snakeiconpink.png')}
 
-medals = [pygame.image.load('images/goldmedal.bmp'), pygame.image.load('images/silvermedal.bmp'), pygame.image.load('images/bronzemedal.bmp')]
+medals = [pygame.image.load('images/goldmedal.bmp'),
+            pygame.image.load('images/silvermedal.bmp'),
+            pygame.image.load('images/bronzemedal.bmp')]
 
 # Sets up the initial interface with the customization buttons, skin selection, etc. 
 def initial_interface():
