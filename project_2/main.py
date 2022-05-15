@@ -3,8 +3,9 @@
 Created on Wed May 16 15:22:20 2018
 @author: zou
 """
-from cgitb import text
+from cgitb import grey, text
 from email import message
+from click import progressbar
 #from turtle import screensize #Pretty sure this causes problems as I need tkinter for it to work
 import pygame
 import time
@@ -24,6 +25,7 @@ blue = pygame.Color(32, 178, 170)
 bright_blue = pygame.Color(32, 200, 200)
 yellow = pygame.Color(255, 205, 0)
 bright_yellow = pygame.Color(255, 255, 0)
+greyy = pygame.Color(80,80,80)
 
 game = Game(Snake('green'))
 rect_len = game.settings.rect_len
@@ -36,6 +38,23 @@ pygame.display.set_caption('Gluttonous')
 crash_sound = pygame.mixer.Sound('./sound/crash.wav')
 
 leaderboard = []
+
+progress_bar_value = 0
+progress_bar_intervals = [0, 50, 100, 200, 400, 800, 1000]
+level_intervals = {0: 'Level 1', 50: 'Level 2', 100: 'Level 3', 200: 'Level 4', 400: 'Level 5', 800: 'Level 6', 1000: ''}
+
+if progress_bar_value < 1000:
+    left_progress = next(x for x, val in enumerate(progress_bar_intervals) if val > progress_bar_value)
+    left_progress_value = progress_bar_intervals[left_progress - 1]
+    right_progress_value = progress_bar_intervals[left_progress]
+else:
+    progress_bar_value = 1000
+    left_progress_value = 800
+    right_progress_value = 1000
+
+fractional_progress = int( ((right_progress_value - progress_bar_value) / (right_progress_value - left_progress_value)) * 240 )
+
+
 
 file_dictionary = {'green': '_g',
                     'red': '_r',
@@ -99,6 +118,9 @@ def crash(score, color):
     message_display('crashed', game.settings.width / 2 * 15, game.settings.height / 3 * 15, white, 50)
     time.sleep(1)
 
+    global progress_bar_value
+    progress_bar_value += score
+
     #Sorting algorithm to keep top snakes at front of list
     global leaderboard
     leaderboard.append([score, color])
@@ -127,21 +149,33 @@ def initial_interface():
     intro = True
     while intro:
 
+        global progress_bar_value
+        fractional_progress = int( ((right_progress_value - progress_bar_value) / (right_progress_value - left_progress_value)) * 240 )
+
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+
         
         question = pygame.image.load('images/help.png')
 
         screen.fill(black)
         screen.blit(snakebackground['green'], (game.settings.width * 1.5, game.settings.height / 3))
         
-        message_display('Snake Game', game.settings.width * 7.5, game.settings.height * 6, white, 50)
+        message_display('Snake Game', game.settings.width * 7.5, game.settings.height * 5.5, white, 50)
+
+        #progress bar
+        small_message_display(level_intervals[left_progress_value], game.settings.width * 7.5 - 150, 200, white )
+        pygame.draw.rect(screen, greyy, (game.settings.width * 7.5 - 120, 200, 240, 5), border_radius=4)
+        pygame.draw.rect(screen, green, (game.settings.width * 7.5 - 120, 200, 240 - fractional_progress, 5), border_radius=4)
+        small_message_display(level_intervals[right_progress_value], game.settings.width * 7.5 + 150, 200, white )
+
 
         smalltrophy = pygame.image.load('images/trophy.png')
         trophy = pygame.transform.scale(smalltrophy, (35,35))
-        button('', game.settings.width * 7.5 - 17.5, 200, 40,40, black, black, leaderboard_ui)
-        screen.blit(trophy, (game.settings.width * 7.5 - 17.5, 200))
+        button('', game.settings.width * 7.5 - 17.5, 240, 40,40, black, black, leaderboard_ui)
+        screen.blit(trophy, (game.settings.width * 7.5 - 17.5, 240))
 
         button('Go!', game.settings.width * 7.5 - 120, 240, 80, 40, green, bright_green, game_loop_easy, 'human', 'green')
         button('Quit', game.settings.width * 7.5 + 40, 240, 80, 40, red, bright_red, quitgame)
@@ -252,7 +286,7 @@ def leaderboard_ui():
         
         #initialise static screen
         screen.fill(black)
-        message_display('Highscores', game.settings.width * 7.5, game.settings.height * 2, white, 50)
+        message_display('Leaderboard', game.settings.width * 7.5, game.settings.height * 2, white, 50)
         button('Exit', game.settings.width * 7.5 - 50, 340, 100, 30, red, red, initial_interface)
 
         #state variables
@@ -289,6 +323,7 @@ def leaderboard_ui():
             if leaderboard[i][0] // 5 == 0:
                 screen.blit(snakehead, (widthvar - 130, game.settings.height * 4 + i*40))
                 screen.blit(snaketail, (widthvar - 110, game.settings.height * 4 + i*40))
+                small_message_display(str(leaderboard[i][0]), widthvar - 110 + 40, game.settings.height * 4 + i*40 + 10)
 
             else:
                 screen.blit(snakehead, (widthvar - 130, game.settings.height * 4 + i*40))
