@@ -104,6 +104,9 @@ def crash(score, color):
     leaderboard.append([score, color])
     leaderboard.sort(key=lambda x:x[0])
     leaderboard.reverse()
+    if [0, color] in leaderboard:
+        leaderboard.remove([0,color])
+
     print(leaderboard)
 
 
@@ -282,30 +285,28 @@ def leaderboard_ui():
                 small_message_display(str(str(i+1) + "th "), widthvar - 150, game.settings.height * 4 + i*40 + 10)
 
             #Snake icon = head + body * score * value + tail
-            #head
-            screen.blit(snakehead, (widthvar - 130, game.settings.height * 4 + i*40))
 
-            #1 body icon for every 5 points
-            for j in range(0, leaderboard[i][0] // 5):
-                #max depth for leaderboard
-                if j == 12 and j != leaderboard[i][0] // 5:
-                    screen.blit(snaketail, (widthvar + 200, game.settings.height * 4 + i*40))
-                    small_message_display(str(leaderboard[i][0]), widthvar + 200, game.settings.height * 4 + i*40 + 10)
-         
-                elif j < 12 and j == leaderboard[i][0] // 5:
-                    screen.blit(snaketail, (widthvar - 110 + 20*j, game.settings.height * 4 + i*40))
-                    small_message_display(str(leaderboard[i][0]), widthvar + - 80 + 20*j, game.settings.height * 4 + i*40 + 10)
+            if leaderboard[i][0] // 5 == 0:
+                screen.blit(snakehead, (widthvar - 130, game.settings.height * 4 + i*40))
+                screen.blit(snaketail, (widthvar - 110, game.settings.height * 4 + i*40))
 
-                
-                elif j < 12:
+            else:
+                screen.blit(snakehead, (widthvar - 130, game.settings.height * 4 + i*40))
+                if leaderboard[i][0] // 5 >= 14: 
+                    endvalue =  14
+                else:
+                    endvalue = leaderboard[i][0] // 5
+
+                for j in range(0, endvalue):
                     screen.blit(snakebody, (widthvar - 110 + 20*j, game.settings.height * 4 + i*40))
+                    if j == endvalue - 1:
+                        screen.blit(snaketail, (widthvar - 90 + 20*j, game.settings.height * 4 + i*40))
+                        small_message_display(str(leaderboard[i][0]), widthvar - 90 + 20*j + 40, game.settings.height * 4 + i*40 + 10)
 
-            #Tail
-            screen.blit(snaketail, (widthvar - 110 + (20*(leaderboard[i][0] // 5)), game.settings.height * 4 + i*40))
-            small_message_display(str(leaderboard[i][0]), widthvar - 85 + (20*(leaderboard[i][0] // 5)), game.settings.height * 4 + i*40 + 10)
 
         pygame.display.update()
         pygame.time.Clock().tick(20)
+
 
 # Gamemodes: 
 # Over and under - don't die from hitting yourself
