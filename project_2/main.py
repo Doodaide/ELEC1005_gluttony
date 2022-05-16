@@ -13,6 +13,7 @@ from pygame.locals import KEYDOWN, K_RIGHT, K_LEFT, K_UP, K_DOWN, K_ESCAPE
 from pygame.locals import QUIT
 from game import Game
 from game import Snake
+import random
 
 black = pygame.Color(0, 0, 0)
 white = pygame.Color(255, 255, 255)
@@ -336,9 +337,16 @@ def leaderboard_ui():
                 break
 
             #Retrieve the colouring of the recently played snake
-            head = pygame.image.load('skin/head_left' + file_dictionary[leaderboard[i][1]] + '.bmp')
-            tail = pygame.image.load('skin/tail_left' + file_dictionary[leaderboard[i][1]] + '.bmp')
-            body = pygame.image.load('skin/body' + file_dictionary[leaderboard[i][1]] + '.bmp')
+            if leaderboard[i][1] != 'rainbow':
+                head = pygame.image.load('skin/head_left' + file_dictionary[leaderboard[i][1]] + '.bmp')
+                tail = pygame.image.load('skin/tail_left' + file_dictionary[leaderboard[i][1]] + '.bmp')
+                body = pygame.image.load('skin/body' + file_dictionary[leaderboard[i][1]] + '.bmp')
+
+            elif leaderboard[i][1] == 'rainbow':
+                head = pygame.image.load('skin/head_left' + file_dictionary['blue'] + '.bmp')
+                tail = pygame.image.load('skin/tail_left' + file_dictionary['pink'] + '.bmp')
+
+
             snakehead = pygame.transform.scale(head, (20,20))
             snaketail = pygame.transform.scale(tail, (20,20))
             snakebody = pygame.transform.scale(body, (20,20))
@@ -365,6 +373,16 @@ def leaderboard_ui():
                     endvalue = leaderboard[i][0] // 5
 
                 for j in range(0, endvalue):
+                    if leaderboard[i][1] == 'rainbow':
+                        body = random.choice([pygame.image.load('skin/body_b.bmp'),
+                                            pygame.image.load('skin/body_g.bmp'),
+                                            pygame.image.load('skin/body_lp.bmp'),
+                                            pygame.image.load('skin/body_o.bmp'),
+                                            pygame.image.load('skin/body_p.bmp'),
+                                            pygame.image.load('skin/body_r.bmp'),
+                                            pygame.image.load('skin/body_y.bmp')])
+                        snakebody = pygame.transform.scale(body, (20,20))
+
                     screen.blit(snakebody, (widthvar - 110 + 20*j, game.settings.height * 4 + i*40))
                     if j == endvalue - 1:
                         screen.blit(snaketail, (widthvar - 90 + 20*j, game.settings.height * 4 + i*40))
