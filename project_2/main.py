@@ -108,7 +108,6 @@ def crash(score, color):
     time.sleep(1)
 
     global progress_bar_value
-    progress_bar_value += score
 
     #Sorting algorithm to keep top snakes at front of list
     global leaderboard
@@ -150,8 +149,8 @@ def initial_interface():
             progress_bar_value = 800
             left_progress_value = 400
             right_progress_value = 800
-            
-        fractional_progress = int( ((right_progress_value - progress_bar_value) / (right_progress_value - left_progress_value)) * 240 )
+
+        fractional_progress = int( ((right_progress_value - progress_bar_value)/(right_progress_value - left_progress_value)) * 240 )
 
 
         for event in pygame.event.get():
@@ -402,6 +401,8 @@ def game_loop_over_and_under(player, color, fps=10):
 
     global snake
     snake = gamee.snake
+
+    global progress_bar_value
     
     gamee.restart_game()
     sum = 0
@@ -418,7 +419,8 @@ def game_loop_over_and_under(player, color, fps=10):
         pygame.display.flip()
         fpsClock.tick(fps)
     
-    crash(sum - 3, snake.color)
+    progress_bar_value += (sum - 3)
+    crash((sum - 3), snake.color)
 
 # No boundaries - CAN CROSS OVER WALLS
 def game_loop_no_boundaries(player, color, fps=10): 
@@ -428,6 +430,8 @@ def game_loop_no_boundaries(player, color, fps=10):
 
     global snake
     snake = gamee.snake
+
+    global progress_bar_value
     
     gamee.restart_game()
     sum = 0
@@ -443,7 +447,7 @@ def game_loop_no_boundaries(player, color, fps=10):
         sum = gamee.snake.getsize()
         pygame.display.flip()
         fpsClock.tick(fps)
-
+    progress_bar_value += (sum - 3)
     crash(sum - 3, snake.color)
 
 # Progressive difficulty - increases difficulty as time increments
@@ -454,6 +458,8 @@ def game_loop_progressive(player, color, fps=10):
 
     global snake
     snake = gamee.snake
+
+    global progress_bar_value
 
     gamee.restart_game()
     sum = 0
@@ -471,8 +477,8 @@ def game_loop_progressive(player, color, fps=10):
         pygame.display.flip()
         fpsClock.tick(fps)
         i += 0.01
-
-    crash((sum - 3)*2, snake.color)
+    progress_bar_value += (sum - 3)*2
+    crash((sum - 3), snake.color)
 
 # Easy difficulty - slow snake
 def game_loop_easy(player, color, fps=10):
@@ -482,6 +488,8 @@ def game_loop_easy(player, color, fps=10):
 
     global snake
     snake = gamee.snake
+
+    global progress_bar_value
 
     gamee.restart_game()
     sum = 0
@@ -498,7 +506,8 @@ def game_loop_easy(player, color, fps=10):
         pygame.display.flip()
         fpsClock.tick(fps)
 
-    crash(sum - 3, snake.color)
+    progress_bar_value += (sum - 3)
+    crash((sum - 3), snake.color)
 
 # Medium difficulty - faster snake
 def game_loop_medium(player, color, fps=10):
@@ -508,6 +517,8 @@ def game_loop_medium(player, color, fps=10):
 
     global snake
     snake = gamee.snake
+
+    global progress_bar_value
 
     gamee.restart_game()
     sum = 0
@@ -524,7 +535,8 @@ def game_loop_medium(player, color, fps=10):
         pygame.display.flip()
         fpsClock.tick(fps)
 
-    crash((sum - 3)*2, snake.color)
+    progress_bar_value += (sum - 3)*2
+    crash((sum - 3), snake.color)
 
 # Hard difficulty - fastest snake
 def game_loop_hard(player, color, fps=10):
@@ -534,6 +546,8 @@ def game_loop_hard(player, color, fps=10):
 
     global snake
     snake = gamee.snake
+
+    global progress_bar_value
 
     gamee.restart_game()
     sum = 0
@@ -550,7 +564,9 @@ def game_loop_hard(player, color, fps=10):
         pygame.display.flip()
         fpsClock.tick(fps)
 
-    crash((sum - 3)*3, snake.color)
+    progress_bar_value += (sum - 3)*3
+    print(progress_bar_value)
+    crash((sum - 3), snake.color)
 
 # returns the corresponding move detected by human input
 def human_move():
