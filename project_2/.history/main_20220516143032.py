@@ -5,7 +5,7 @@ Created on Wed May 16 15:22:20 2018
 """
 from cgitb import grey, text
 from email import message
-#from click import progressbar
+from click import progressbar
 #from turtle import screensize #Pretty sure this causes problems as I need tkinter for it to work
 import pygame
 import time
