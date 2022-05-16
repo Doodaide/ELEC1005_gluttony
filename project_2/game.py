@@ -35,13 +35,6 @@ class Snake:
         # This section controls the snake's customizable colouring 
         if self.color.lower() == 'rainbow':
             filesource = random.choice(list(file_dictionary.values()))
-            self.image_body = random.choice([pygame.image.load('skin/body_b.bmp'),
-                                        pygame.image.load('skin/body_g.bmp'),
-                                        pygame.image.load('skin/body_lp.bmp'),
-                                        pygame.image.load('skin/body_o.bmp'),
-                                        pygame.image.load('skin/body_p.bmp'),
-                                        pygame.image.load('skin/body_r.bmp'),
-                                        pygame.image.load('skin/body_y.bmp')])
         else:
             filesource = file_dictionary[self.color.lower()]
         
@@ -75,6 +68,15 @@ class Snake:
 
     # Visualises the snake on the map 
     def blit_body(self, x, y, screen):
+        if self.color.lower() == 'rainbow':
+            self.image_body = random.choice([pygame.image.load('skin/body_b.bmp'),
+                                            pygame.image.load('skin/body_g.bmp'),
+                                            pygame.image.load('skin/body_lp.bmp'),
+                                            pygame.image.load('skin/body_o.bmp'),
+                                            pygame.image.load('skin/body_p.bmp'),
+                                            pygame.image.load('skin/body_r.bmp'),
+                                            pygame.image.load('skin/body_y.bmp')])
+
         screen.blit(self.image_body, (x, y))
         
     def blit_head(self, x, y, screen):
