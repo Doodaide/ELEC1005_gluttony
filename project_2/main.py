@@ -40,7 +40,7 @@ crash_sound = pygame.mixer.Sound('./sound/crash.wav')
 
 leaderboard = []
 
-progress_bar_value = 450
+progress_bar_value = 0
 progress_bar_intervals = [0, 50, 100, 200, 400, 800]
 level_intervals = {0: 'Level 1', 50: 'Level 2', 100: 'Level 3', 200: 'Level 4', 400: 'Level 5', 800: ''}
 
@@ -472,7 +472,7 @@ def game_loop_progressive(player, color, fps=10):
         fpsClock.tick(fps)
         i += 0.01
 
-    crash(sum - 3, snake.color)
+    crash((sum - 3)*2, snake.color)
 
 # Easy difficulty - slow snake
 def game_loop_easy(player, color, fps=10):
@@ -524,7 +524,7 @@ def game_loop_medium(player, color, fps=10):
         pygame.display.flip()
         fpsClock.tick(fps)
 
-    crash(sum - 3, snake.color)
+    crash((sum - 3)*2, snake.color)
 
 # Hard difficulty - fastest snake
 def game_loop_hard(player, color, fps=10):
@@ -550,7 +550,7 @@ def game_loop_hard(player, color, fps=10):
         pygame.display.flip()
         fpsClock.tick(fps)
 
-    crash(sum - 3, snake.color)
+    crash((sum - 3)*3, snake.color)
 
 # returns the corresponding move detected by human input
 def human_move():
