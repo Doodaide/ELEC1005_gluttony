@@ -39,9 +39,9 @@ crash_sound = pygame.mixer.Sound('./sound/crash.wav')
 
 leaderboard = []
 
-progress_bar_value = 0
-progress_bar_intervals = [0, 50, 100, 200, 400, 800, 1000]
-level_intervals = {0: 'Level 1', 50: 'Level 2', 100: 'Level 3', 200: 'Level 4', 400: 'Level 5', 800: 'Level 6', 1000: ''}
+progress_bar_value = 500
+progress_bar_intervals = [0, 50, 100, 200, 400, 800]
+level_intervals = {0: 'Level 1', 50: 'Level 2', 100: 'Level 3', 200: 'Level 4', 400: 'Level 5', 800: ''}
 
 
 file_dictionary = {'green': '_g',
@@ -126,7 +126,9 @@ snakebackground = {'green': pygame.image.load('images/snakeicongreen.png'),
                     'purple': pygame.image.load('images/snakeiconpurple.png'),
                     'orange': pygame.image.load('images/snakeiconorange.png'),
                     'yellow': pygame.image.load('images/snakeiconyellow.png'),
-                    'pink': pygame.image.load('images/snakeiconpink.png')}
+                    'pink': pygame.image.load('images/snakeiconpink.png'),
+                    'blackandwhite': pygame.image.load('images/snakeiconblackandwhite.png'),
+                    'rainbow': pygame.image.load('images/snakeiconrainbow.png')}
 
 medals = [pygame.image.load('images/goldmedal.bmp'),
             pygame.image.load('images/silvermedal.bmp'),
@@ -139,14 +141,14 @@ def initial_interface():
 
         global progress_bar_value
 
-        if progress_bar_value < 1000:
+        if progress_bar_value < 800:
             left_progress = next(x for x, val in enumerate(progress_bar_intervals) if val > progress_bar_value)
             left_progress_value = progress_bar_intervals[left_progress - 1]
             right_progress_value = progress_bar_intervals[left_progress]
         else:
-            progress_bar_value = 1000
-            left_progress_value = 800
-            right_progress_value = 1000
+            progress_bar_value = 800
+            left_progress_value = 400
+            right_progress_value = 800
             
         fractional_progress = int( ((right_progress_value - progress_bar_value) / (right_progress_value - left_progress_value)) * 240 )
 
@@ -237,41 +239,73 @@ def color_interface():
         widthvar = game.settings.width * 7.5
 
         #Colour interface
+        global progress_bar_value
 
         #Green Snake
         button('', 80,120,180,60,black,black, settings_interface, 'player', 'green')
         snakegreen = pygame.transform.scale(snakebackground['green'], (200,50))
-        screen.blit(snakegreen, (widthvar - 200, game.settings.height * 4))
+        screen.blit(snakegreen, (widthvar - 220, game.settings.height * 4))
 
         #Blue Snake
         button('', 80,180,180,60,black,black, settings_interface, 'player', 'blue')
         snakeblue = pygame.transform.scale(snakebackground['blue'], (200,50))
-        screen.blit(snakeblue, (widthvar - 200, game.settings.height * 6))
+        screen.blit(snakeblue, (widthvar - 220, game.settings.height * 6))
 
         #Red Snake
         button('', 80,240,180,60,black,black, settings_interface, 'player', 'red')
         snakered = pygame.transform.scale(snakebackground['red'], (200,50))
-        screen.blit(snakered, (widthvar - 200, game.settings.height * 8))
+        screen.blit(snakered, (widthvar - 220, game.settings.height * 8))
+
 
         #Yellow Snake
-        button('', 80,300,180,60,black,black, settings_interface, 'player', 'yellow')
+        button('', 80,300,120,60,black,black, settings_interface, 'player', 'yellow')
         snakeyellow = pygame.transform.scale(snakebackground['yellow'], (200,50))
-        screen.blit(snakeyellow, (widthvar - 200, game.settings.height * 10))
+        screen.blit(snakeyellow, (widthvar - 220, game.settings.height * 10))
+
+        #MUST UNLOCK THESE SNAKES
+        snakegrey = pygame.transform.scale(snakebackground['blackandwhite'], (200,50))
+        lockicon = pygame.transform.scale(pygame.image.load('images/lockicon.png'), (25,25))
 
         #Purple Snake
-        button('', 300,120,180,60,black,black, settings_interface, 'player', 'purple')
-        snakepurple = pygame.transform.scale(snakebackground['purple'], (200,50))
-        screen.blit(snakepurple, (game.settings.width * 8, game.settings.height * 4))
+        if progress_bar_value >= 50:
+            button('', 300,120,180,60,black,black, settings_interface, 'player', 'purple')
+            snakepurple = pygame.transform.scale(snakebackground['purple'], (200,50))
+            screen.blit(snakepurple, (game.settings.width * 8.5, game.settings.height * 4))
+        else:
+            screen.blit(snakegrey, (game.settings.width * 8.5, game.settings.height * 4))
+            screen.blit(lockicon, (game.settings.width * 8.5 - 20, game.settings.height * 4 + 17))
+            small_message_display('level 2', game.settings.width * 8.5 - 6, game.settings.height * 4 + 50)
 
         #Pink Snake
-        button('', 300,180,180,60,black,black, settings_interface, 'player', 'pink')
-        snakepink = pygame.transform.scale(snakebackground['pink'], (200,50))
-        screen.blit(snakepink, (game.settings.width * 8, game.settings.height * 6))
+        if progress_bar_value >= 100:
+            button('', 300,180,180,60,black,black, settings_interface, 'player', 'pink')
+            snakepink = pygame.transform.scale(snakebackground['pink'], (200,50))
+            screen.blit(snakepink, (game.settings.width * 8.5, game.settings.height * 6))
+        else:
+            screen.blit(snakegrey, (game.settings.width * 8.5, game.settings.height * 6))
+            screen.blit(lockicon, (game.settings.width * 8.5 - 20, game.settings.height * 6 + 17))
+            small_message_display('level 3', game.settings.width * 8.5 - 6, game.settings.height * 6 + 50)
 
         #Orange Snake
-        button('', 300,240,180,60,black,black, settings_interface, 'player', 'orange')
-        snakeorange = pygame.transform.scale(snakebackground['orange'], (200,50))
-        screen.blit(snakeorange, (game.settings.width * 8, game.settings.height * 8))
+        if progress_bar_value >= 200:
+            button('', 300,240,180,60,black,black, settings_interface, 'player', 'orange')
+            snakeorange = pygame.transform.scale(snakebackground['orange'], (200,50))
+            screen.blit(snakeorange, (game.settings.width * 8.5, game.settings.height * 8))
+        else:
+            screen.blit(snakegrey, (game.settings.width * 8.5, game.settings.height * 8))
+            screen.blit(lockicon, (game.settings.width * 8.5 - 20, game.settings.height * 8 + 17))
+            small_message_display('level 4', game.settings.width * 8.5 - 6, game.settings.height * 8 + 50)
+
+        #Rainbow snake
+        if progress_bar_value >= 400:
+            button('', 300, 260, 180, 60, black, black, settings_interface, 'player', 'rainbow')
+            snakerainbow = pygame.transform.scale(snakebackground['rainbow'], (200,50))
+            screen.blit(snakerainbow, (game.settings.width * 8.5, game.settings.height * 10))
+        else:
+            screen.blit(snakegrey, (game.settings.width * 8.5, game.settings.height * 10))
+            screen.blit(lockicon, (game.settings.width * 8.5 - 20, game.settings.height * 10 + 17))
+            small_message_display('level 5', game.settings.width * 8.5 - 6, game.settings.height * 10 + 50)
+
 
         pygame.display.update()
         pygame.time.Clock().tick(15)
