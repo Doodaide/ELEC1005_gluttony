@@ -14,7 +14,7 @@ from game import Game
 from game import Snake
 import random
 
-# Tries to open a file that has the player's level saved in it. 
+# Tries to pens a file that has the player's level saved in it. 
 try:
     level_file = open("level_files/level.txt", "r")
 except Exception:
