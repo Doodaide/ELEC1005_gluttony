@@ -39,7 +39,7 @@ yellow = pygame.Color(255, 205, 0)
 bright_yellow = pygame.Color(255, 255, 0)
 greyy = pygame.Color(80,80,80)
 
-# Sets up the stuff we can see like the snake on the home screen, game-ticks, and the caption
+# Sets up the stuff we can see like the snake on the home screen, game-ticks, and the 
 game = Game(Snake('green'))
 rect_len = game.settings.rect_len
 snake = game.snake

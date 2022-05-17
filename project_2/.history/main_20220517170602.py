@@ -25,7 +25,7 @@ except Exception:
     # Then open this new file as the "level file"
     level_file = open("level_files/level.txt", "r")
 
-# Mostly initialization of the colours, and backgrounds used 
+
 black = pygame.Color(0, 0, 0)
 white = pygame.Color(255, 255, 255)
 
@@ -39,7 +39,7 @@ yellow = pygame.Color(255, 205, 0)
 bright_yellow = pygame.Color(255, 255, 0)
 greyy = pygame.Color(80,80,80)
 
-# Sets up the stuff we can see like the snake on the home screen, game-ticks, and the caption
+
 game = Game(Snake('green'))
 rect_len = game.settings.rect_len
 snake = game.snake
