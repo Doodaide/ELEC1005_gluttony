@@ -123,8 +123,7 @@ def small_message_display(text, x, y, color=white, size = 20):
     pygame.display.update()
 
 # Added a text size parameter for button function. Ensures the whole message fits
-def button(msg, x, y, w, h, inactive_color, active_color, action=None,\
-     parameter=None, parameter2=None, parameter3=None, text_size = 20):
+def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter=None, parameter2=None, parameter3=None, text_size = 20):
 
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -173,8 +172,7 @@ def quitgame():
 
 def crash(score, color):
     pygame.mixer.Sound.play(crash_sound)
-    message_display('crashed', game.settings.width / 2 * 15,\
-         game.settings.height / 3 * 15, white, 50)
+    message_display('crashed', game.settings.width / 2 * 15, game.settings.height / 3 * 15, white, 50)
     time.sleep(1)
 
     global progress_bar_value
@@ -187,7 +185,7 @@ def crash(score, color):
     if [0, color] in leaderboard:
         leaderboard.remove([0,color])
 
-# Loads certain images
+
 snakebackground = {'green': pygame.image.load('images/snakeicongreen.png'),
                     'blue': pygame.image.load('images/snakeiconblue.png'),
                     'red': pygame.image.load('images/snakeiconred.png'),
@@ -237,7 +235,7 @@ def initial_interface():
         pygame.draw.rect(screen, green, (142.5, 205, 240 - fractional_progress, 5), border_radius=4)
         small_message_display(level_intervals[right_progress_value], 412.5, 205, white )
 
-        # Leaderboard "trophy" icon
+
         smalltrophy = pygame.image.load('images/trophy.png')
         trophy = pygame.transform.scale(smalltrophy, (35,35))
         button('', 245, 250, 40,40, black, black, leaderboard_ui)
