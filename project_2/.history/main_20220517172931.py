@@ -17,8 +17,6 @@ import random
 # Tries to open a file that has the player's level saved in it. 
 try:
     level_file = open("level_files/level.txt", "r")
-    if level_file.readline() == "":
-        raise TypeError
 except Exception:
     # if there is no file, make a file and manually write 0
     level_file = open("level_files/level.txt", "w")
@@ -64,8 +62,6 @@ try:
         leaderboard.append(small_boi)
         a += 2 
         b += 2
-except Exception:
-    pass 
 
 
 # Reads the level (saved in a file)
@@ -78,7 +74,6 @@ except Exception:
     new_level_file.write("0")
     new_level_file.close()
     level_file.close()
-    progress_bar_value = 0
 
 progress_bar_intervals = [0, 50, 100, 200, 400, 800]
 level_intervals = {0: 'Level 1', 50: 'Level 2', 100: 'Level 3',\

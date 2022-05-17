@@ -17,8 +17,6 @@ import random
 # Tries to open a file that has the player's level saved in it. 
 try:
     level_file = open("level_files/level.txt", "r")
-    if level_file.readline() == "":
-        raise TypeError
 except Exception:
     # if there is no file, make a file and manually write 0
     level_file = open("level_files/level.txt", "w")
@@ -54,18 +52,11 @@ crash_sound = pygame.mixer.Sound('./sound/crash.wav')
 
 leaderboard = []
 
-try: 
-    a = 0 
-    b = 1
-    leaderboard_obj = open("level_files/leaderboard.txt", "r")
-    temp_leaderboard = leaderboard_obj.readlines()
-    while a < len(temp_leaderboard)/2 :
-        small_boi = [int(temp_leaderboard[a].strip()), temp_leaderboard[b].strip()]
-        leaderboard.append(small_boi)
-        a += 2 
-        b += 2
-except Exception:
-    pass 
+a = 0 
+b = 0 
+leaderboard_obj = open("level_files/leaderboard.txt", "r")
+temp_leaderboard = leaderboard_obj.readlines()
+while a < len()
 
 
 # Reads the level (saved in a file)
@@ -78,7 +69,6 @@ except Exception:
     new_level_file.write("0")
     new_level_file.close()
     level_file.close()
-    progress_bar_value = 0
 
 progress_bar_intervals = [0, 50, 100, 200, 400, 800]
 level_intervals = {0: 'Level 1', 50: 'Level 2', 100: 'Level 3',\

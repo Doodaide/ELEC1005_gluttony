@@ -78,7 +78,6 @@ except Exception:
     new_level_file.write("0")
     new_level_file.close()
     level_file.close()
-    progress_bar_value = 0
 
 progress_bar_intervals = [0, 50, 100, 200, 400, 800]
 level_intervals = {0: 'Level 1', 50: 'Level 2', 100: 'Level 3',\
