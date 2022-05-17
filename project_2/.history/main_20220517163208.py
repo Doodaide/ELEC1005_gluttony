@@ -14,7 +14,6 @@ from pygame.locals import QUIT
 from game import Game
 from game import Snake
 import random
-import os 
 
 black = pygame.Color(0, 0, 0)
 white = pygame.Color(255, 255, 255)
@@ -604,9 +603,9 @@ def help_interface(player, color):
                               game.settings.height * 7, white)
         
 
-        button('Over and Under', widthvar - 170, 220, 100, 40, green, green, introductions, 'human', color, 'Over and Under', 13)
-        button('No Boundaries', widthvar - 50, 220, 100, 40, green, green, introductions, 'human', color, 'No Boundaries', 14)
-        button('Progressive', widthvar + 70, 220, 100, 40, green, green, introductions, 'human', color, 'Progressive', 15)
+        button('Over and Under', widthvar - 170, 220, 100, 40, green, green, introductions, 'human', color, 'Over and Under', 15)
+        button('No Boundaries', widthvar - 50, 220, 100, 40, green, green, introductions, 'human', color, 'No Boundaries', 15)
+        button('Progressive', widthvar + 70, 220, 100, 40, green, green, introductions, 'human', color, 'Progressive', 16)
 
         button('Easy', widthvar - 170, 280, 100, 40, green, green, introductions, 'human', color, 'Easy')
         button('Medium', widthvar - 50, 280, 100, 40, green, green, introductions, 'human', color, 'Medium')
@@ -640,8 +639,8 @@ def introductions(player, color, gamemode):
         screen.fill(black)
         message_display("Introduction to " + gamemode, 262.5, game.settings.height * 2, white, 35)
 
-        small_message_display(message_dictionary[gamemode][0], 262.5, game.settings.height * 6, white, 15)
-        small_message_display(message_dictionary[gamemode][1], 262.5, game.settings.height * 8, white, 15)
+        small_message_display(message_dictionary[gamemode][0], 262.5, game.settings.height * 6, white)
+        small_message_display(message_dictionary[gamemode][1], 262.5, game.settings.height * 8, white)
 
         button("Exit", 445, 380, 80, 40, red, bright_red, help_interface, 'human', 'green')
         button('Go', 445/2, 340, 100, 30, green, bright_green, game_loop_dictionary[gamemode], 'human', color)

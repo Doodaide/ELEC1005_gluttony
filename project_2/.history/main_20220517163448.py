@@ -14,7 +14,6 @@ from pygame.locals import QUIT
 from game import Game
 from game import Snake
 import random
-import os 
 
 black = pygame.Color(0, 0, 0)
 white = pygame.Color(255, 255, 255)
