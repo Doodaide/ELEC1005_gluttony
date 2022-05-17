@@ -68,7 +68,7 @@ try:
         a += 2 
         b += 2
     leaderboard_obj.close()    
-# If some error is met, the entire process is skipped, and the leaderboard starts blank.     
+    
 except Exception:
     pass 
 

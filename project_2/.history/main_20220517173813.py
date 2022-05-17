@@ -61,14 +61,12 @@ try:
     a = 0 # Score counter 
     b = 1 # colour counter 
     leaderboard_obj = open("level_files/leaderboard.txt", "r") #opens file 
-    temp_leaderboard = leaderboard_obj.readlines() # grabs everyting from the file 
+    temp_leaderboard = leaderboard_obj.readlines()
     while a < len(temp_leaderboard)/2 :
         small_boi = [int(temp_leaderboard[a].strip()), temp_leaderboard[b].strip()]
         leaderboard.append(small_boi)
         a += 2 
         b += 2
-    leaderboard_obj.close()    
-# If some error is met, the entire process is skipped, and the leaderboard starts blank.     
 except Exception:
     pass 
 
