@@ -5,6 +5,7 @@ Created on Wed May 16 15:22:20 2018
 """
 from cgitb import grey, text
 from email import message
+#from click import progressbar
 #from turtle import screensize #Pretty sure this causes problems as I need tkinter for it to work
 import pygame
 import time
@@ -14,7 +15,7 @@ from game import Game
 from game import Snake
 import random
 
-level_file = open("level_files/level.txt", "r")
+level_file = open("level.txt", "r")
 
 black = pygame.Color(0, 0, 0)
 white = pygame.Color(255, 255, 255)
@@ -41,20 +42,13 @@ crash_sound = pygame.mixer.Sound('./sound/crash.wav')
 
 leaderboard = []
 
-# Reads the level (saved in a file)
-# So the player won't lose their progress
 try:
     progress_bar_value = int(level_file.readline())
 except Exception:
-    #if no level file is detected, manually reset to 0
-    new_level_file = open("level_files/level.txt", "w")
-    new_level_file.write("0")
-    new_level_file.close()
-    level_file.close()
+    exit()    
 
 progress_bar_intervals = [0, 50, 100, 200, 400, 800]
-level_intervals = {0: 'Level 1', 50: 'Level 2', 100: 'Level 3',\
-     200: 'Level 4', 400: 'Level 5', 800: ''}
+level_intervals = {0: 'Level 1', 50: 'Level 2', 100: 'Level 3', 200: 'Level 4', 400: 'Level 5', 800: ''}
 
 
 file_dictionary = {'green': '_g',
@@ -112,13 +106,6 @@ def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter
 
 def quitgame():
     pygame.quit()
-    
-    # Write the player's new level to a new file
-    # This is done before quitting
-    new_level_file = open("level_files/level.txt", "w")
-    new_level_file.write(str(progress_bar_value))
-    new_level_file.close()
-    level_file.close()
     quit()
 
 def crash(score, color):

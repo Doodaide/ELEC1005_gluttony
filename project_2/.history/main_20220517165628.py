@@ -114,7 +114,6 @@ def quitgame():
     pygame.quit()
     
     # Write the player's new level to a new file
-    # This is done before quitting
     new_level_file = open("level_files/level.txt", "w")
     new_level_file.write(str(progress_bar_value))
     new_level_file.close()

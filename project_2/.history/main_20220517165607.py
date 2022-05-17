@@ -46,7 +46,6 @@ leaderboard = []
 try:
     progress_bar_value = int(level_file.readline())
 except Exception:
-    #if no level file is detected, manually reset to 0
     new_level_file = open("level_files/level.txt", "w")
     new_level_file.write("0")
     new_level_file.close()
@@ -112,9 +111,6 @@ def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter
 
 def quitgame():
     pygame.quit()
-    
-    # Write the player's new level to a new file
-    # This is done before quitting
     new_level_file = open("level_files/level.txt", "w")
     new_level_file.write(str(progress_bar_value))
     new_level_file.close()
