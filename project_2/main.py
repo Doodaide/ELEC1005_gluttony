@@ -117,8 +117,6 @@ def crash(score, color):
     if [0, color] in leaderboard:
         leaderboard.remove([0,color])
 
-    print(leaderboard)
-
 
 snakebackground = {'green': pygame.image.load('images/snakeicongreen.png'),
                     'blue': pygame.image.load('images/snakeiconblue.png'),
@@ -198,12 +196,12 @@ def settings_interface(player, color):
         screen.fill(black)
 
         #Snake icon to change colour
-        button('', 100, 30, 350, 60, black, black, color_interface)
-        screen.blit(snakebackground[color], (game.settings.width * 1.5, game.settings.height / 3))
+        button('', 100, 30, 350, 67, black, black, color_interface)
+        screen.blit(snakebackground[color], (game.settings.width * 1.5, game.settings.height / 10))
 
 
-        message_display('Customise game', 262.5, game.settings.height * 6, white, 50)
-        small_message_display('*click me*', 67, 80, white)
+        message_display('Customise game', 262.5, game.settings.height * 5.5, white, 50)
+        small_message_display('*click me*', 67, 75, white)
         
         #Customise Game Modes
         button('Over and Under', 92.5, 200, 100, 40, green, green, game_loop_over_and_under, 'human', color,'Over and Under', 13)
@@ -236,7 +234,7 @@ def color_interface():
         global progress_bar_value
 
         #Green Snake
-        button('', widthvar - 200,90,180,40,black,black, settings_interface, 'player', 'green')
+        button('', widthvar - 200,100,185,40,black,black, settings_interface, 'player', 'green')
         snakegreen = pygame.transform.scale(snakebackground['green'], (200,50))
         screen.blit(snakegreen, (widthvar - 220, 90))
 
@@ -559,7 +557,6 @@ def game_loop_hard(player, color, fps=10):
         fpsClock.tick(fps)
 
     progress_bar_value += (sum - 3)*3
-    print(progress_bar_value)
     crash((sum - 3), snake.color)
 
 # returns the corresponding move detected by human input
