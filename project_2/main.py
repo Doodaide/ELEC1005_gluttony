@@ -14,19 +14,6 @@ from game import Game
 from game import Snake
 import random
 
-# Tries to open a file that has the player's level saved in it. 
-try:
-    level_file = open("level_files/level.txt", "r")
-    if level_file.readline() == "":
-        raise TypeError
-except Exception:
-    # if there is no file, make a file and manually write 0
-    level_file = open("level_files/level.txt", "w")
-    level_file.write("0")
-    level_file.close()
-    # Then open this new file as the "level file"
-    level_file = open("level_files/level.txt", "r")
-
 # Mostly initialization of the colours, and backgrounds used 
 black = pygame.Color(0, 0, 0)
 white = pygame.Color(255, 255, 255)
@@ -73,17 +60,25 @@ except Exception:
     pass 
 
 
-# Reads the level (saved in a file)
-# So the player won't lose their progress
 try:
-    progress_bar_value = int(level_file.readline())
+    level_file = open("level_files/level.txt", "r")
+    read_level = level_file.readline()
+
+    if read_level != "":
+        progress_bar_value = int(read_level)
+        level_file.close()
+        level_file = open("level_files/level.txt", "r")
+
+    elif read_level == "":
+        raise TypeError
+
 except Exception:
-    #if no level file is detected, manually reset to 0
-    new_level_file = open("level_files/level.txt", "w")
-    new_level_file.write("0")
-    new_level_file.close()
+    level_file = open("level_files/level.txt", "w")
+    level_file.write("0")
     level_file.close()
     progress_bar_value = 0
+    level_file = open("level_files/level.txt", "r")
+
 
 progress_bar_intervals = [0, 50, 100, 200, 400, 800]
 level_intervals = {0: 'Level 1', 50: 'Level 2', 100: 'Level 3',\
@@ -166,7 +161,7 @@ def quitgame():
             leaderboard_file.write("\n")
             i += 1
         leaderboard_file.close()   
-    except Exception: 
+    except Exception:
         pass 
 
     quit()
