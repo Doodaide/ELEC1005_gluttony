@@ -216,7 +216,7 @@ medals = [pygame.image.load('images/goldmedal.bmp'),
 # Sets up the initial interface with the customization buttons, skin selection, etc. 
 def initial_interface():
     while True:
-        playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Overworld Night.mp3")
+        playmusic("sound/Scott Lloyd Shelly - Overworld Night.mp3")
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -473,7 +473,7 @@ def leaderboard_ui():
 # Gamemodes: 
 # Over and under - don't die from hitting yourself
 def game_loop_over_and_under(player, color, fps=10): 
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Overworld Night.mp3")
+    playmusic("sound/Scott Lloyd Shelly - Overworld Night.mp3")
     global game
     gamee = Game(Snake(color))
 
@@ -498,13 +498,13 @@ def game_loop_over_and_under(player, color, fps=10):
         fpsClock.tick(fps)
         
     pygame.mixer.music.fadeout(1)
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Overworld Day.mp3")
+    playmusic("sound/Scott Lloyd Shelly - Overworld Day.mp3")
     progress_bar_value += (sum - 3)
     crash((sum - 3), snake.color)
 
 # No boundaries - CAN CROSS OVER WALLS
 def game_loop_no_boundaries(player, color, fps=10): 
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - The Hallow.mp3")
+    playmusic("sound/Scott Lloyd Shelly - The Hallow.mp3")
     global game
     gamee = Game(Snake(color))
 
@@ -529,13 +529,13 @@ def game_loop_no_boundaries(player, color, fps=10):
         fpsClock.tick(fps)
         
     pygame.mixer.music.fadeout(1)
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Overworld Day.mp3")
+    playmusic("sound/Scott Lloyd Shelly - Overworld Day.mp3")
     progress_bar_value += (sum - 3)
     crash(sum - 3, snake.color)
 
 # Progressive difficulty - increases difficulty as time increments
 def game_loop_progressive(player, color, fps=10):
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Boss 3.mp3")
+    playmusic("sound/Scott Lloyd Shelly - Boss 3.mp3")
     global game
     gamee = Game(Snake(color))
 
@@ -562,13 +562,13 @@ def game_loop_progressive(player, color, fps=10):
         i += 0.01
         
     pygame.mixer.music.fadeout(1)
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Overworld Day.mp3")
+    playmusic("sound/Scott Lloyd Shelly - Overworld Day.mp3")
     progress_bar_value += (sum - 3)*2
     crash((sum - 3), snake.color)
 
 # Easy difficulty - slow snake
 def game_loop_easy(player, color, fps=10):
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/T_Space.mp3")
+    playmusic("sound/T_Space.mp3")
     global game
     gamee = Game(Snake(color))
 
@@ -593,13 +593,13 @@ def game_loop_easy(player, color, fps=10):
         fpsClock.tick(fps)
     
     pygame.mixer.music.fadeout(1)
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Overworld Day.mp3")
+    playmusic("sound/Scott Lloyd Shelly - Overworld Day.mp3")
     progress_bar_value += (sum - 3)
     crash((sum - 3), snake.color)
 
 # Medium difficulty - faster snake
 def game_loop_medium(player, color, fps=10):
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Ballad_of_the_Cats.mp3")
+    playmusic("sound/Ballad_of_the_Cats.mp3")
     global game
     gamee = Game(Snake(color))
 
@@ -624,13 +624,13 @@ def game_loop_medium(player, color, fps=10):
         fpsClock.tick(fps)
 
     pygame.mixer.music.fadeout(1)
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Overworld Day.mp3")
+    playmusic("sound/Scott Lloyd Shelly - Overworld Day.mp3")
     progress_bar_value += (sum - 3)*2
     crash((sum - 3), snake.color)
 
 # Hard difficulty - fastest snake
 def game_loop_hard(player, color, fps=10):
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/01. Hell On Earth.mp3")
+    playmusic("sound/01. Hell On Earth.mp3")
     global game
     gamee = Game(Snake(color))
 
@@ -655,7 +655,7 @@ def game_loop_hard(player, color, fps=10):
         fpsClock.tick(fps)
 
     pygame.mixer.music.fadeout(1)
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Overworld Day.mp3")
+    playmusic("sound/Scott Lloyd Shelly - Overworld Day.mp3")
     progress_bar_value += (sum - 3)*3
     crash((sum - 3), snake.color)
 
