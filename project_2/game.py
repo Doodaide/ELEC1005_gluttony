@@ -57,12 +57,14 @@ class Snake:
 
         #starts the snake at a pre-determined position at default 0 score
         self.initialize()
-
+        
+    #resets the position and score to the initial value
     def initialize(self):
         self.position = [6, 6]
         self.segments = [[6 - i, 6] for i in range(3)]
         self.score = 0
-   
+        
+        #returns the length of the snake
     def getsize(self):
         return len(self.segments)
 
@@ -78,7 +80,8 @@ class Snake:
                                             pygame.image.load('skin/body_y.bmp')])
 
         screen.blit(self.image_body, (x, y))
-        
+         
+    #defines the movement of the head
     def blit_head(self, x, y, screen):
         if self.facing == "up":
             screen.blit(self.image_up, (x, y))
@@ -87,8 +90,9 @@ class Snake:
         elif self.facing == "left":
             screen.blit(self.image_left, (x, y))  
         else:
-            screen.blit(self.image_right, (x, y))  
+            screen.blit(self.image_right, (x, y)) 
             
+    #defines the movement of the tail        
     def blit_tail(self, x, y, screen):
         tail_direction = [self.segments[-2][i] - self.segments[-1][i] for i in range(2)]
         
@@ -106,8 +110,8 @@ class Snake:
         for position in self.segments[1:-1]:
             self.blit_body(position[0]*rect_len, position[1]*rect_len, screen)
         self.blit_tail(self.segments[-1][0]*rect_len, self.segments[-1][1]*rect_len, screen)                
-            
-    
+        
+    #updates the position of the snake
     def update(self):
         if self.facing == 'right':
             self.position[0] += 1
@@ -173,7 +177,8 @@ class Strawberry():
         #reposition the food item if it is repositioned inside the snake
         if self.position in snake.segments:
             self.random_pos(snake)
-
+    
+    #updates the food objects in the map
     def blit(self, screen):
         screen.blit(self.image, [p * self.settings.rect_len for p in self.position])
    
@@ -198,6 +203,7 @@ class Game:
         self.snake.initialize()
         self.strawberry.initialize()
 
+    #returns the current state of the game    
     def current_state(self):         
         state = np.zeros((self.settings.width+2, self.settings.height+2, 2))
         expand = [[0, 1], [0, -1], [-1, 0], [1, 0], [0, 2], [0, -2], [-2, 0], [2, 0]]
@@ -212,6 +218,7 @@ class Game:
             state[self.strawberry.position[1]+d[0], self.strawberry.position[0]+d[1], 1] = 0.5
         return state
     
+    #returns the direction of the snake as an integer
     def direction_to_int(self, direction):
         direction_dict = {value : key for key,value in self.move_dict.items()}
         return direction_dict[direction]
