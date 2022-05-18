@@ -49,7 +49,7 @@ try:
     b = 1 # colour counter 
     leaderboard_obj = open("level_files/leaderboard.txt", "r") #opens file 
     temp_leaderboard = leaderboard_obj.readlines() # grabs everyting from the file 
-    while a < len(temp_leaderboard)/2 :
+    while a < len(temp_leaderboard) :
         small_boi = [int(temp_leaderboard[a].strip()), temp_leaderboard[b].strip()]
         leaderboard.append(small_boi)
         a += 2 
@@ -140,35 +140,28 @@ def button(msg, x, y, w, h, inactive_color, active_color, action=None,\
     TextSurf, TextRect = text_objects(msg, smallText)
     TextRect.center = (x + (w / 2), y + (h / 2))
     screen.blit(TextSurf, TextRect)
-#music    
-def playmusic(filename):
-    filepath = rf"{filename}"
-    pygame.mixer.init()
-    pygame.mixer.music.load(filepath)
-    pygame.mixer.music.play(-1)    
-    
 
 
 # Exits the game and saves the progress of the user in a file
 def quitgame():
     pygame.quit()
     
-    # Write the player's new level to a new file
-    # This is done before quitting
-    new_level_file = open("level_files/level.txt", "w")
-    new_level_file.write(str(progress_bar_value))
-    new_level_file.close()
-    level_file.close()
+    # # Write the player's new level to a new file
+    # # This is done before quitting
+    # new_level_file = open("level_files/level.txt", "w")
+    # new_level_file.write(str(progress_bar_value))
+    # new_level_file.close()
+    # level_file.close()
 
     try: 
         leaderboard_file = open("level_files/leaderboard.txt", "w")
-        i = 0 
-        while i < len(leaderboard):
-            leaderboard_file.write(str(leaderboard[i][0]))
+
+        for score in leaderboard:
+            leaderboard_file.write(str(score[0]))
             leaderboard_file.write("\n")
-            leaderboard_file.write(str(leaderboard[i][1]))
+            leaderboard_file.write(str(score[1]))
             leaderboard_file.write("\n")
-            i += 1
+
         leaderboard_file.close()   
     except Exception:
         pass 
@@ -188,8 +181,12 @@ def crash(score, color):
     #Sorting algorithm to keep top snakes at front of list
     global leaderboard
     leaderboard.append([score, color])
+
+    #Sort in descending order
     leaderboard.sort(key=lambda x:x[0])
     leaderboard.reverse()
+
+    #Neglect any zero point snakes
     if [0, color] in leaderboard:
         leaderboard.remove([0,color])
 
@@ -211,7 +208,6 @@ medals = [pygame.image.load('images/goldmedal.bmp'),
 
 # Sets up the initial interface with the customization buttons, skin selection, etc. 
 def initial_interface():
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Overworld Day.mp3")
     while True:
 
         for event in pygame.event.get():
@@ -469,7 +465,6 @@ def leaderboard_ui():
 # Gamemodes: 
 # Over and under - don't die from hitting yourself
 def game_loop_over_and_under(player, color, fps=10): 
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Overworld Night.mp3")
     global game
     gamee = Game(Snake(color))
 
@@ -494,13 +489,11 @@ def game_loop_over_and_under(player, color, fps=10):
         fpsClock.tick(fps)
         
     pygame.mixer.music.fadeout(1)
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Overworld Day.mp3")
     progress_bar_value += (sum - 3)
     crash((sum - 3), snake.color)
 
 # No boundaries - CAN CROSS OVER WALLS
 def game_loop_no_boundaries(player, color, fps=10): 
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - The Hallow.mp3")
     global game
     gamee = Game(Snake(color))
 
@@ -525,13 +518,11 @@ def game_loop_no_boundaries(player, color, fps=10):
         fpsClock.tick(fps)
         
     pygame.mixer.music.fadeout(1)
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Overworld Day.mp3")
     progress_bar_value += (sum - 3)
     crash(sum - 3, snake.color)
 
 # Progressive difficulty - increases difficulty as time increments
 def game_loop_progressive(player, color, fps=10):
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Boss 3.mp3")
     global game
     gamee = Game(Snake(color))
 
@@ -558,13 +549,11 @@ def game_loop_progressive(player, color, fps=10):
         i += 0.01
         
     pygame.mixer.music.fadeout(1)
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Overworld Day.mp3")
     progress_bar_value += (sum - 3)*2
     crash((sum - 3), snake.color)
 
 # Easy difficulty - slow snake
 def game_loop_easy(player, color, fps=10):
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/T_Space.mp3")
     global game
     gamee = Game(Snake(color))
 
@@ -589,13 +578,11 @@ def game_loop_easy(player, color, fps=10):
         fpsClock.tick(fps)
     
     pygame.mixer.music.fadeout(1)
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Overworld Day.mp3")
     progress_bar_value += (sum - 3)
     crash((sum - 3), snake.color)
 
 # Medium difficulty - faster snake
 def game_loop_medium(player, color, fps=10):
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Ballad_of_the_Cats.mp3")
     global game
     gamee = Game(Snake(color))
 
@@ -620,13 +607,11 @@ def game_loop_medium(player, color, fps=10):
         fpsClock.tick(fps)
 
     pygame.mixer.music.fadeout(1)
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Overworld Day.mp3")
     progress_bar_value += (sum - 3)*2
     crash((sum - 3), snake.color)
 
 # Hard difficulty - fastest snake
 def game_loop_hard(player, color, fps=10):
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/01. Hell On Earth.mp3")
     global game
     gamee = Game(Snake(color))
 
@@ -651,7 +636,6 @@ def game_loop_hard(player, color, fps=10):
         fpsClock.tick(fps)
 
     pygame.mixer.music.fadeout(1)
-    playmusic("/home/elec1005/ELEC1005_gluttony-main/project_2/sound/Scott Lloyd Shelly - Overworld Day.mp3")
     progress_bar_value += (sum - 3)*3
     crash((sum - 3), snake.color)
 
