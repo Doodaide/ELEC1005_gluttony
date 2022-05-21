@@ -62,6 +62,7 @@ except Exception:
 try:
     level_file = open("level_files/level.txt", "r")
     read_level = level_file.readline()
+    print(read_level)
 
     if read_level != "":
         progress_bar_value = int(read_level)
@@ -154,10 +155,10 @@ def quitgame():
     
     # # Write the player's new level to a new file
     # # This is done before quitting
-    # new_level_file = open("level_files/level.txt", "w")
-    # new_level_file.write(str(progress_bar_value))
-    # new_level_file.close()
-    # level_file.close()
+    new_level_file = open("level_files/level.txt", "w")
+    new_level_file.write(str(progress_bar_value))
+    new_level_file.close()
+    level_file.close()
 
     try: 
         leaderboard_file = open("level_files/leaderboard.txt", "w")
@@ -473,6 +474,8 @@ def leaderboard_ui():
 # Over and under - don't die from hitting yourself
 def game_loop_over_and_under(player, color, fps=10): 
     playmusic("sound/Scott Lloyd Shelly - Overworld Night.mp3")
+
+    #Fetch global variables
     global game, snake, progress_bar_value
     gamee = Game(Snake(color))
     snake = gamee.snake
@@ -482,6 +485,8 @@ def game_loop_over_and_under(player, color, fps=10):
     while not gamee.game_end_over_and_under():
         pygame.event.pump()
         move = human_move()
+
+        #Medium speed to compensate game feature
         fps = 10
         gamee.do_move_normal(move)
         screen.fill(black)
@@ -550,7 +555,6 @@ def game_loop_progressive(player, color, fps=10):
         
         #Speed
         fps = 5 + speed
-
         gamee.do_move_normal(move)
         screen.fill(black)
         gamee.snake.blit(rect_len, screen)

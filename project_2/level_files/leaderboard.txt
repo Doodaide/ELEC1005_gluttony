@@ -1,14 +1,6 @@
-18
-green
-18
+77
 rainbow
-18
+68
 green
-6
-rainbow
-5
-rainbow
-2
-green
-1
+7
 green
