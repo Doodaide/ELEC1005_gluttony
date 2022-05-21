@@ -284,12 +284,12 @@ def settings_interface(player, color):
 
 
         message_display('Customise game', 262.5, game.settings.height * 5.5, white, 50)
-        small_message_display('*click me*', 67, 75, white)
+        small_message_display('*click me*', 67, 72, white)
         
         #Customise Game Modes
-        button('Over and Under', 92.5, 200, 100, 40, green, green, game_loop_over_and_under, 'human', color,'Over and Under', 13)
-        button('No Boundaries', 212.5, 200, 100, 40, green, green, game_loop_no_boundaries, 'human', color, 'No Boundaries',13)
-        button('Progressive', 332.5, 200, 100, 40, green, green, game_loop_progressive, 'human', color, 'Progressive', 13)
+        button('Over and Under', 92.5, 200, 100, 40, green, green, game_loop_over_and_under, 'human', color,'Over and Under', 20)
+        button('No Boundaries', 212.5, 200, 100, 40, green, green, game_loop_no_boundaries, 'human', color, 'No Boundaries',20)
+        button('Progressive', 332.5, 200, 100, 40, green, green, game_loop_progressive, 'human', color, 'Progressive', 20)
 
         button('Easy', 92.5, 270, 100, 40, green, green, game_loop_easy, 'human', color)
         button('Medium', 212.5, 270, 100, 40, green, green, game_loop_medium, 'human', color)
@@ -473,14 +473,10 @@ def leaderboard_ui():
 # Over and under - don't die from hitting yourself
 def game_loop_over_and_under(player, color, fps=10): 
     playmusic("sound/Scott Lloyd Shelly - Overworld Night.mp3")
-    global game
+    global game, snake, progress_bar_value
     gamee = Game(Snake(color))
-
-    global snake
     snake = gamee.snake
 
-    global progress_bar_value
-    
     gamee.restart_game()
     sum = 0
     while not gamee.game_end_over_and_under():
@@ -498,19 +494,19 @@ def game_loop_over_and_under(player, color, fps=10):
         
     pygame.mixer.music.fadeout(1)
     playmusic("sound/Scott Lloyd Shelly - Overworld Day.mp3")
+
+    #Set score valut (easier game mode = 1 point)
     progress_bar_value += (sum - 3)
     crash((sum - 3), snake.color)
 
 # No boundaries - CAN CROSS OVER WALLS
 def game_loop_no_boundaries(player, color, fps=10): 
     playmusic("sound/Scott Lloyd Shelly - The Hallow.mp3")
-    global game
+
+    #Retrieve global variables
+    global game, snake, progress_bar_value
     gamee = Game(Snake(color))
-
-    global snake
     snake = gamee.snake
-
-    global progress_bar_value
     
     gamee.restart_game()
     sum = 0
@@ -518,6 +514,8 @@ def game_loop_no_boundaries(player, color, fps=10):
         pygame.event.pump()
         move = human_move()
         fps = 10
+
+        #Customised move function
         gamee.do_move_no_boundaries(move)
         screen.fill(black)
         gamee.snake.blit(rect_len, screen)
@@ -529,27 +527,30 @@ def game_loop_no_boundaries(player, color, fps=10):
         
     pygame.mixer.music.fadeout(1)
     playmusic("sound/Scott Lloyd Shelly - Overworld Day.mp3")
+
+    #Customise score (easier game mode = 1 point)
     progress_bar_value += (sum - 3)
     crash(sum - 3, snake.color)
 
 # Progressive difficulty - increases difficulty as time increments
 def game_loop_progressive(player, color, fps=10):
     playmusic("sound/Scott Lloyd Shelly - Boss 3.mp3")
-    global game
+
+    #Retrieve global variables
+    global game, snake, progress_bar_value
     gamee = Game(Snake(color))
-
-    global snake
     snake = gamee.snake
-
-    global progress_bar_value
 
     gamee.restart_game()
     sum = 0
-    i = 0
+    speed = 0
     while not gamee.game_end():
         pygame.event.pump()
         move = human_move()
-        fps = 5 + i
+        
+        #Speed
+        fps = 5 + speed
+
         gamee.do_move_normal(move)
         screen.fill(black)
         gamee.snake.blit(rect_len, screen)
@@ -558,29 +559,33 @@ def game_loop_progressive(player, color, fps=10):
         sum = gamee.snake.getsize()
         pygame.display.flip()
         fpsClock.tick(fps)
-        i += 0.01
+
+        #Increment Speed
+        speed += 0.01
         
     pygame.mixer.music.fadeout(1)
     playmusic("sound/Scott Lloyd Shelly - Overworld Day.mp3")
+
+    #Set score (medium level game mode = 2 points)
     progress_bar_value += (sum - 3)*2
     crash((sum - 3), snake.color)
 
 # Easy difficulty - slow snake
 def game_loop_easy(player, color, fps=10):
     playmusic("sound/T_Space.mp3")
-    global game
+
+    #Fetch global variables
+    global game, snake, progress_bar_value
     gamee = Game(Snake(color))
-
-    global snake
     snake = gamee.snake
-
-    global progress_bar_value
 
     gamee.restart_game()
     sum = 0
     while not gamee.game_end():
         pygame.event.pump()
         move = human_move()
+
+        #Slowest speed = easier
         fps = 5
         gamee.do_move_normal(move)
         screen.fill(black)
@@ -593,25 +598,27 @@ def game_loop_easy(player, color, fps=10):
     
     pygame.mixer.music.fadeout(1)
     playmusic("sound/Scott Lloyd Shelly - Overworld Day.mp3")
+
+    #Set score (easier game mode = 1 point)
     progress_bar_value += (sum - 3)
     crash((sum - 3), snake.color)
 
 # Medium difficulty - faster snake
 def game_loop_medium(player, color, fps=10):
     playmusic("sound/Ballad_of_the_Cats.mp3")
-    global game
+
+    #Fetch global variables
+    global game, snake, progress_bar_value
     gamee = Game(Snake(color))
-
-    global snake
     snake = gamee.snake
-
-    global progress_bar_value
 
     gamee.restart_game()
     sum = 0
     while not gamee.game_end():
         pygame.event.pump()
         move = human_move()
+
+        #Increase speed
         fps = 10
         gamee.do_move_normal(move)
         screen.fill(black)
@@ -624,25 +631,27 @@ def game_loop_medium(player, color, fps=10):
 
     pygame.mixer.music.fadeout(1)
     playmusic("sound/Scott Lloyd Shelly - Overworld Day.mp3")
+
+    #Set score (medium game mode = 2 points)
     progress_bar_value += (sum - 3)*2
     crash((sum - 3), snake.color)
 
 # Hard difficulty - fastest snake
 def game_loop_hard(player, color, fps=10):
     playmusic("sound/01. Hell On Earth.mp3")
-    global game
+
+    #Fetch global variables
+    global game, snake, progress_bar_value
     gamee = Game(Snake(color))
-
-    global snake
     snake = gamee.snake
-
-    global progress_bar_value
 
     gamee.restart_game()
     sum = 0
     while not gamee.game_end():
         pygame.event.pump()
         move = human_move()
+
+        #Hardest game mode = 3x speed = 15
         fps = 15
         gamee.do_move_normal(move)
         screen.fill(black)
@@ -655,6 +664,8 @@ def game_loop_hard(player, color, fps=10):
 
     pygame.mixer.music.fadeout(1)
     playmusic("sound/Scott Lloyd Shelly - Overworld Day.mp3")
+
+    #Set score (Hardest game mode = 3 points)
     progress_bar_value += (sum - 3)*3
     crash((sum - 3), snake.color)
 
@@ -666,6 +677,7 @@ def human_move():
         if event.type == QUIT:
             pygame.quit()
 
+        #Retrieve user inputs
         elif event.type == KEYDOWN:
             if event.key == K_RIGHT or event.key == ord('d'):
                 direction = 'right'
